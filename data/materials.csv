@@ -1,0 +1,19 @@
+name,category,density_g_cm3,tensile_strength_mpa,yield_strength_mpa,elastic_modulus_gpa,cost_usd_per_kg
+Structural Steel A36,Metal,7.85,400,250,200.0,0.8
+Stainless Steel 304,Metal,8.00,505,215,193.0,3.0
+Cast Iron (Gray),Metal,7.20,200,130,110.0,1.0
+Aluminum 6061-T6,Metal,2.70,310,276,68.9,2.2
+Aluminum 7075-T6,Metal,2.81,572,503,71.7,4.0
+Titanium Ti-6Al-4V,Metal,4.43,950,880,113.8,20.0
+Magnesium AZ31B,Metal,1.77,260,200,45.0,5.5
+Copper C11000,Metal,8.96,220,70,117.0,8.5
+Brass C26000,Metal,8.53,340,125,100.0,6.0
+Inconel 718,Metal,8.19,1375,1100,200.0,45.0
+Carbon Fiber Composite (CFRP),Composite,1.60,1500,1200,135.0,30.0
+Fiberglass (E-glass),Composite,1.90,400,300,25.0,5.0
+Oak Wood,Wood,0.75,100,60,12.0,1.5
+Balsa Wood,Wood,0.16,20,15,3.5,8.0
+Concrete (Standard),Ceramic,2.40,5,3,30.0,0.1
+Glass (Soda-Lime),Ceramic,2.50,50,50,70.0,0.5
+ABS Plastic,Polymer,1.05,40,30,2.3,2.0
+Nylon 6/6,Polymer,1.14,75,45,2.8,3.5
