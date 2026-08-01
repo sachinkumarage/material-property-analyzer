@@ -9,17 +9,23 @@ Running this script will:
     3. Print a ranking of the best materials by specific strength
     4. Compare a few hand-picked materials side by side
     5. Generate matplotlib charts into the output/ folder
+    6. Run the advanced material selection engine (Part 2) as a demo
 
 Run it from the project's root folder with:
     python main.py
+
+Or skip straight to the interactive material selector (Part 2) with:
+    python main.py --select
 """
 
+import argparse
 import os
 
 from src.database import MaterialDatabase
 from src.calculations import add_calculated_columns
 from src.comparator import MaterialComparator
 from src.visualizer import generate_all_charts
+from src.selection_engine import SelectionEngine
 
 DATA_PATH = os.path.join("data", "materials.csv")
 OUTPUT_DIR = "output"
@@ -41,7 +47,40 @@ def print_table(df, title: str):
     print(df.to_string(index=False))
 
 
+def run_selection_demo(db):
+    """
+    Demonstrate the Part 2 advanced selection engine: filter materials
+    by a hard requirement (max cost) and rank the survivors for a
+    "lightweight & strong" engineering goal using the weighted scoring
+    system in src/scoring.py.
+    """
+    engine = SelectionEngine(db.data)
+    shortlist = engine.select(
+        goal="lightweight_strength",
+        max_cost=25.0,
+        top_n=5,
+    )
+    print_table(
+        shortlist,
+        "Selection Engine Demo: Best 'Lightweight & Strong' Materials Under $25/kg",
+    )
+
+
 def main():
+    parser = argparse.ArgumentParser(description="Material Property Analyzer")
+    parser.add_argument(
+        "--select",
+        action="store_true",
+        help="Skip the demo report and launch the interactive material selector instead",
+    )
+    args = parser.parse_args()
+
+    if args.select:
+        from src.cli import run
+
+        run()
+        return
+
     # Step 1: load the raw materials database from CSV.
     db = MaterialDatabase(DATA_PATH)
     print(f"Loaded {len(db.list_materials())} materials from {DATA_PATH}")
@@ -70,6 +109,10 @@ def main():
     print("  - strength_to_weight_ranking.png")
     print("  - strength_vs_density.png")
     print("  - material_comparison.png")
+
+    # Step 6: demo the Part 2 advanced material selection engine.
+    run_selection_demo(db)
+    print("\nTip: run 'python main.py --select' for the interactive material selector.")
 
 
 if __name__ == "__main__":
