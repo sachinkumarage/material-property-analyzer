@@ -8,9 +8,17 @@ numbers takes a minute to read - especially useful when comparing many
 materials at once.
 
 Color choices below follow a simple rule: one fixed color per material
-category (so "Metal" is always the same color across charts), and a
-single blue hue shaded light-to-dark for "ranking" charts where we are
-showing one continuous quantity from best to worst.
+category (so "Titanium Alloys" is always the same color across charts),
+and a single blue hue shaded light-to-dark for "ranking" charts where we
+are showing one continuous quantity from best to worst.
+
+With 17 categories, no single flat palette stays easy to read - human
+color vision reliably tells apart roughly 8 hues side by side, not 17.
+Instead, categories are grouped by material family and given shades of
+the SAME hue: every steel is a shade of blue, every light structural
+metal (aluminum/titanium/magnesium) is a shade of teal/green, and so
+on. The legend then reads as clusters of related materials rather than
+17 arbitrary colors.
 """
 
 import os
@@ -22,12 +30,33 @@ from src.calculations import add_calculated_columns
 # Fixed color per material category, so the same category always reads
 # as the same color across every chart in this project (identity should
 # never shift just because a filter changed which categories are shown).
+# Grouped by material family (see module docstring above):
 CATEGORY_COLORS = {
-    "Metal": "#2a78d6",
-    "Composite": "#eb6834",
-    "Wood": "#1baf7a",
-    "Ceramic": "#eda100",
-    "Polymer": "#e87ba4",
+    # Ferrous metals (iron-based) -> blue family
+    "Carbon Steels": "#1f4e8c",
+    "Stainless Steels": "#3d7ebf",
+    "Tool Steels": "#6badd6",
+    "Cast Irons": "#9fcae1",
+    # Light structural metals -> teal/green family
+    "Aluminum Alloys": "#1b9e77",
+    "Titanium Alloys": "#3fbf9f",
+    "Magnesium Alloys": "#7fd8c5",
+    # Copper & nickel alloys -> warm brass/copper family
+    "Copper Alloys": "#d2691e",
+    "Nickel Alloys": "#b8860b",
+    # Hard, brittle inorganics -> purple family
+    "Ceramics": "#7b3fa0",
+    "Glass": "#b39ddb",
+    # Organic-chemistry solids -> pink/magenta family
+    "Polymers": "#e0559b",
+    "Elastomers": "#f4a6c6",
+    # Engineered fiber/matrix materials -> red (stands alone: distinct
+    # performance role from every other family)
+    "Composites": "#d62728",
+    # Naturally occurring / mineral-aggregate materials -> brown/gray family
+    "Wood": "#8c5a2b",
+    "Concrete": "#9e9e9e",
+    "Natural Materials": "#c9a066",
 }
 DEFAULT_COLOR = "#898781"  # muted gray fallback for any unlisted category
 
@@ -90,7 +119,7 @@ def plot_strength_to_weight_ranking(df, output_path: str, top_n: int = 10):
     plt.close(fig)
 
 
-def plot_strength_vs_density(df, output_path: str):
+def plot_strength_vs_density(df, output_path: str, max_labels: int = 30):
     """
     Scatter plot of tensile strength vs. density, one dot per material,
     colored by category.
@@ -98,10 +127,19 @@ def plot_strength_vs_density(df, output_path: str):
     Materials in the upper-left of this chart (high strength, low
     density) have the best specific strength - this is the classic
     "materials selection chart" engineers use (inspired by Ashby charts).
+
+    Parameters
+    ----------
+    max_labels : with a database of 100+ materials, printing every
+                 material's name next to its dot makes the chart
+                 unreadable. Point labels are only drawn when there are
+                 max_labels or fewer materials being plotted; above that,
+                 dots are still colored and grouped by category, just
+                 without individual name labels.
     """
     data = df.copy()
 
-    fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(10, 7))
 
     # Plot one series per category so the legend lists identities, not
     # a single generic "materials" blob - keeps color tied to category.
@@ -111,23 +149,25 @@ def plot_strength_vs_density(df, output_path: str):
             group["tensile_strength_mpa"],
             label=category,
             color=_category_color(category),
-            s=70,
+            s=50,
             edgecolors="white",
-            linewidths=0.8,
+            linewidths=0.6,
             zorder=3,
         )
 
     # Label each point with its material name so individual materials
-    # are identifiable without hovering (this is a static image).
-    for _, row in data.iterrows():
-        ax.annotate(
-            row["name"],
-            (row["density_g_cm3"], row["tensile_strength_mpa"]),
-            textcoords="offset points",
-            xytext=(6, 4),
-            fontsize=7,
-            color=MUTED_TEXT,
-        )
+    # are identifiable without hovering (this is a static image) - but
+    # only when there are few enough points for labels to stay readable.
+    if len(data) <= max_labels:
+        for _, row in data.iterrows():
+            ax.annotate(
+                row["name"],
+                (row["density_g_cm3"], row["tensile_strength_mpa"]),
+                textcoords="offset points",
+                xytext=(6, 4),
+                fontsize=7,
+                color=MUTED_TEXT,
+            )
 
     ax.set_xlabel("Density (g/cm³) - lower is lighter", color=MUTED_TEXT)
     ax.set_ylabel("Tensile strength (MPa) - higher is stronger", color=MUTED_TEXT)
@@ -136,13 +176,20 @@ def plot_strength_vs_density(df, output_path: str):
     _style_axes(ax)
     ax.grid(axis="y", color=GRID_COLOR, linewidth=0.8, zorder=0)
 
-    legend = ax.legend(title="Category", frameon=False, loc="upper left")
+    # With up to 17 categories in the legend, place it outside the plot
+    # area so it never overlaps data points.
+    legend = ax.legend(
+        title="Category", frameon=False, loc="upper left",
+        bbox_to_anchor=(1.01, 1.0), fontsize=8,
+    )
     legend.get_title().set_color(MUTED_TEXT)
     for text in legend.get_texts():
         text.set_color(MUTED_TEXT)
 
     fig.tight_layout()
-    fig.savefig(output_path, dpi=150)
+    # bbox_inches="tight" makes sure the legend (placed outside the axes
+    # above) is fully included in the saved image instead of being cut off.
+    fig.savefig(output_path, dpi=150, bbox_inches="tight")
     plt.close(fig)
 
 

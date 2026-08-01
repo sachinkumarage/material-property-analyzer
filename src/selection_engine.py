@@ -80,7 +80,7 @@ def filter_materials(
     Parameters
     ----------
     categories : only keep materials in these categories, e.g.
-                 ["Metal", "Composite"].
+                 ["Aluminum Alloys", "Composites"].
     max_density : reject anything denser than this (g/cm3) - use when
                   weight is a hard constraint (e.g. a drone part).
     min_tensile_strength : reject anything weaker than this (MPa).
@@ -145,7 +145,7 @@ class SelectionEngine:
         top_n : how many top-ranked materials to return.
         **filter_kwargs : hard requirements passed straight through to
                            filter_materials(), e.g. max_cost=10,
-                           categories=["Metal"].
+                           categories=["Stainless Steels"].
         """
         if goal is not None:
             if goal not in GOAL_PRESETS:

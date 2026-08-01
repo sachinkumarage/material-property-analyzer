@@ -33,6 +33,17 @@ stiffness" - useful for parts where you care about resisting bending
 
 import pandas as pd
 
+# Materials engineering concept: RELATIVE COST
+# -----------------------------------------------
+# Raw material prices swing with the market, but engineers usually only
+# care about relative cost when comparing options: "how many times more
+# expensive is titanium than plain steel?" We answer that by dividing
+# every material's cost by a fixed baseline - the approximate price of
+# ordinary structural carbon steel (about $1/kg). A relative_cost_index
+# of 20 means "about 20x the price of basic carbon steel", regardless of
+# which materials happen to be in the current table.
+BASELINE_COST_USD_PER_KG = 1.0
+
 
 def strength_to_weight_ratio(strength_mpa: float, density_g_cm3: float) -> float:
     """
@@ -87,6 +98,7 @@ def add_calculated_columns(df: pd.DataFrame) -> pd.DataFrame:
         - yield_to_weight_ratio    (using yield strength)
         - stiffness_to_weight_ratio
         - cost_per_unit_strength
+        - relative_cost_index      (cost relative to plain carbon steel)
 
     Returns a NEW DataFrame (the original is left untouched), which is
     a safer habit than modifying data in place.
@@ -120,5 +132,7 @@ def add_calculated_columns(df: pd.DataFrame) -> pd.DataFrame:
         ),
         axis=1,
     )
+
+    result["relative_cost_index"] = result["cost_usd_per_kg"] / BASELINE_COST_USD_PER_KG
 
     return result

@@ -1,12 +1,14 @@
 # Material Property Analyzer
 
 A beginner-friendly Python tool for exploring and comparing engineering
-materials (metals, composites, wood, ceramics, polymers) using real
-mechanical properties like density, strength, and stiffness.
+materials - steels, aluminum and titanium alloys, ceramics, polymers,
+composites, wood, and more - using real mechanical, thermal, electrical,
+and cost properties.
 
-It reads a CSV database of materials, calculates the **strength-to-weight
-ratio** (and a few other useful engineering ratios), ranks and compares
-materials, and generates matplotlib charts to visualize the results.
+It reads a CSV database of over 100 materials across 17 categories,
+calculates the **strength-to-weight ratio** (and a few other useful
+engineering ratios), ranks and compares materials, and generates
+matplotlib charts to visualize the results.
 
 ## Why this matters (materials engineering 101)
 
@@ -124,20 +126,75 @@ material-property-analyzer/
 
 ## The materials database (`data/materials.csv`)
 
+The database contains **109 engineering materials across 17 categories**:
+
+Carbon Steels, Stainless Steels, Tool Steels, Aluminum Alloys, Titanium
+Alloys, Magnesium Alloys, Copper Alloys, Nickel Alloys, Cast Irons,
+Ceramics, Glass, Polymers, Elastomers, Composites, Wood, Concrete, and
+Natural Materials.
+
 Each row describes one material with these columns:
 
-| Column | Meaning |
-|---|---|
-| `name` | Material name |
-| `category` | Metal, Composite, Wood, Ceramic, or Polymer |
-| `density_g_cm3` | Density in grams per cubic centimetre |
-| `tensile_strength_mpa` | Ultimate tensile strength (MPa) - stress at which the material breaks |
-| `yield_strength_mpa` | Yield strength (MPa) - stress at which the material permanently deforms |
-| `elastic_modulus_gpa` | Young's modulus (GPa) - a measure of stiffness |
-| `cost_usd_per_kg` | Approximate raw material cost |
+| Column | Meaning | Units / notes |
+|---|---|---|
+| `name` | Material name, e.g. "Aluminum 6061-T6" | - |
+| `category` | One of the 17 categories listed above | - |
+| `density_g_cm3` | Mass per unit volume | g/cm³ |
+| `yield_strength_mpa` | Stress at which the material starts to permanently deform | MPa |
+| `tensile_strength_mpa` | Ultimate tensile strength - the stress at which the material breaks | MPa |
+| `elastic_modulus_gpa` | Young's modulus - stiffness, i.e. resistance to elastic stretching/bending | GPa |
+| `poisson_ratio` | How much a material narrows sideways when stretched lengthwise | unitless, typically 0-0.5 |
+| `hardness_value` | Resistance to surface indentation/scratching | see `hardness_scale` |
+| `hardness_scale` | Which hardness scale `hardness_value` is measured on | HB, HRC, HV, Shore A, Shore D, Mohs, Janka, or Barcol - see below |
+| `thermal_conductivity_w_mk` | How well the material conducts heat | W/(m·K) |
+| `electrical_conductivity_percent_iacs` | Electrical conductivity relative to pure annealed copper | %IACS (copper = 100%, insulators ≈ 0%) |
+| `melting_point_c` | Melting point, or an approximate softening/decomposition temperature for materials without a sharp melting point (see note below) | °C |
+| `fatigue_strength_mpa` | Approximate stress the material can survive for ~10 million load cycles without breaking | MPa |
+| `cost_usd_per_kg` | Approximate raw material cost | USD/kg |
+| `corrosion_resistance` | Rough qualitative rating | Poor, Fair, Good, or Excellent |
 
-Values are realistic approximations meant for learning and experimentation,
-not for real engineering design work.
+Loading the database through `src/database.py` also gives you a derived
+`relative_cost_index` column (via `add_calculated_columns`) - see
+[Key formulas used](#key-formulas-used) below.
+
+### About the hardness scales
+
+Different material families are conventionally measured on different
+hardness scales, so this project keeps the raw scale alongside the
+value instead of forcing everything onto one number:
+
+| Scale | Used for | Typical range in this dataset |
+|---|---|---|
+| **HB** (Brinell) | Most metals (steels, aluminum, copper, magnesium, nickel, cast iron) | ~20-500 |
+| **HRC** (Rockwell C) | Hardened tool steels and some hardened alloys | ~40-65 |
+| **HV** (Vickers) | Technical ceramics (too hard for a Brinell indenter) | ~1,200-3,000 |
+| **Shore D** | Rigid plastics | ~45-90 |
+| **Shore A** | Soft rubbers/elastomers, and a few soft natural materials | ~30-85 |
+| **Mohs** | Glass, concrete, and other mineral-based brittle materials | ~3-7 |
+| **Janka** (lbf) | Wood - the force needed to embed a steel ball halfway into the wood | ~90-1,450 |
+| **Barcol** | Fiber-reinforced composites | ~40-60 |
+
+### A note on data sources and accuracy
+
+Every value in `data/materials.csv` is an **approximate, representative
+figure** drawn from commonly used materials-engineering references
+(handbook-style typical values, e.g. ASM Handbook-style data and
+manufacturer datasheet ranges), not a certified test result. Real
+material properties vary by supplier, heat treatment, temper, and test
+method. A few columns need extra context because not every material
+family fits neatly into "strength" and "melting point":
+
+- **Brittle materials** (ceramics, glass, cast irons like White Cast
+  Iron) don't have a true yield point - they crack instead of bending.
+  For these rows, `yield_strength_mpa` is set equal to
+  `tensile_strength_mpa` (approximated by flexural/fracture strength).
+- **Materials without a sharp melting point** - polymers, elastomers,
+  wood, concrete, and natural materials - don't melt the way a metal
+  does. `melting_point_c` for these rows is an approximate
+  softening, decomposition, or ignition temperature instead.
+- **This data is for learning and experimentation only** - do not use
+  it for real engineering design work. Always consult a certified
+  datasheet or run your own testing for anything load-bearing.
 
 ### Adding your own materials
 
@@ -149,13 +206,21 @@ from src.database import MaterialDatabase
 
 db = MaterialDatabase("data/materials.csv")
 db.add_material(
-    name="Bamboo",
+    name="Rattan (Bamboo Cane)",
     category="Wood",
     density_g_cm3=0.7,
-    tensile_strength_mpa=140,
     yield_strength_mpa=100,
+    tensile_strength_mpa=140,
     elastic_modulus_gpa=20,
+    poisson_ratio=0.3,
+    hardness_value=1000,
+    hardness_scale="Janka",
+    thermal_conductivity_w_mk=0.15,
+    electrical_conductivity_percent_iacs=0,
+    melting_point_c=300,
+    fatigue_strength_mpa=40,
     cost_usd_per_kg=1.2,
+    corrosion_resistance="Fair",
 )
 db.save()  # writes back to data/materials.csv
 ```
@@ -189,7 +254,7 @@ engine = SelectionEngine(db.data)
 # "budget_friendly", or "balanced") plus optional hard requirements.
 shortlist = engine.select(
     goal="lightweight_strength",
-    categories=["Metal", "Composite"],
+    categories=["Aluminum Alloys", "Titanium Alloys", "Composites"],
     max_cost=25.0,       # USD/kg
     max_density=5.0,     # g/cm3
     top_n=5,
@@ -217,6 +282,11 @@ print(custom_shortlist)
   - Higher is better when resisting bending/flex matters most.
 - **Cost per unit strength:** `cost_per_kg / tensile_strength`
   - Lower is better when budget is the priority.
+- **Relative cost index:** `cost_per_kg / 1.0 USD` (the approximate price
+  of plain structural carbon steel)
+  - A value of 20 means "about 20x the price of basic carbon steel" -
+    handy for comparing cost across very differently priced materials
+    (e.g. wood vs. titanium) without caring about market price swings.
 
 See the comments in `src/calculations.py` for a deeper explanation of each
 concept.
@@ -265,7 +335,8 @@ be used as a learning tool for:
 - Creating charts with `matplotlib`
 - Normalizing and combining metrics with a weighted decision matrix
 - Building a simple interactive command-line interface
+- Working with a larger, multi-property real-world-style dataset
 
-Feel free to extend it further - more materials, more properties (fatigue
-strength, thermal conductivity, corrosion resistance), or saving/loading
-custom weight presets would all be natural next steps.
+Feel free to extend it further - more materials, temperature-dependent
+properties, saving/loading custom weight presets, or scoring by thermal
+or electrical conductivity would all be natural next steps.
