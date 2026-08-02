@@ -10,11 +10,14 @@ Running this script will:
     4. Compare a few hand-picked materials side by side
     5. Generate matplotlib charts into the output/ folder
     6. Run the advanced material selection engine (Part 2) as a demo
+    7. Run the Version 4 search & filter tool and database statistics
+       as a demo
 
 Run it from the project's root folder with:
     python main.py
 
-Or skip straight to the interactive material selector (Part 2) with:
+Or skip straight to the interactive CLI (material selector, search &
+filter, and database statistics) with:
     python main.py --select
 """
 
@@ -26,6 +29,7 @@ from src.calculations import add_calculated_columns
 from src.comparator import MaterialComparator
 from src.visualizer import generate_all_charts
 from src.selection_engine import SelectionEngine
+from src.search import SearchEngine, print_statistics
 
 DATA_PATH = os.path.join("data", "materials.csv")
 OUTPUT_DIR = "output"
@@ -66,12 +70,36 @@ def run_selection_demo(db):
     )
 
 
+def run_search_demo(db):
+    """
+    Demonstrate the Version 4 search & filter tool: search for
+    stainless steels, filter to a density/cost range, and sort the
+    matches by specific strength - then print the whole-database
+    statistics summary.
+    """
+    engine = SearchEngine(db.data)
+    matches = engine.search(
+        category="Steel",
+        density_range=(None, 8.5),
+        relative_cost_range=(None, 15.0),
+        sort_by="specific_strength",
+        top_n=5,
+    )
+    print_table(
+        matches[["name", "category", "subcategory", "density_g_cm3", "tensile_strength_mpa", "cost_usd_per_kg"]],
+        "Search Demo: Steels Under 8.5 g/cm3 and $15/kg, Sorted by Specific Strength",
+    )
+
+    print_statistics(db.data)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Material Property Analyzer")
     parser.add_argument(
         "--select",
         action="store_true",
-        help="Skip the demo report and launch the interactive material selector instead",
+        help="Skip the demo report and launch the interactive CLI instead "
+             "(material selector, search & filter, database statistics)",
     )
     args = parser.parse_args()
 
@@ -112,7 +140,12 @@ def main():
 
     # Step 6: demo the Part 2 advanced material selection engine.
     run_selection_demo(db)
-    print("\nTip: run 'python main.py --select' for the interactive material selector.")
+
+    # Step 7: demo the Version 4 search & filter tool and database statistics.
+    run_search_demo(db)
+
+    print("\nTip: run 'python main.py --select' for the interactive CLI "
+          "(material selector, search & filter, and database statistics).")
 
 
 if __name__ == "__main__":

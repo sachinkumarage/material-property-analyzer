@@ -33,6 +33,9 @@ class MaterialDatabase:
         name                                  - material name, e.g. "Aluminum 6061-T6"
         category                              - one of 17 material families, e.g.
                                                  "Aluminum Alloys", "Ceramics", "Wood"
+        subcategory                           - a finer classification within the
+                                                 category, e.g. "6xxx Series (Al-Mg-Si)"
+                                                 within "Aluminum Alloys"
         density_g_cm3                         - density in grams per cubic centimetre
         yield_strength_mpa                    - stress at which the material starts
                                                  to permanently deform (megapascals)
@@ -68,6 +71,7 @@ class MaterialDatabase:
     REQUIRED_COLUMNS = [
         "name",
         "category",
+        "subcategory",
         "density_g_cm3",
         "yield_strength_mpa",
         "tensile_strength_mpa",
@@ -120,6 +124,7 @@ class MaterialDatabase:
             db.add_material(
                 name="Rattan (Bamboo Cane)",
                 category="Wood",
+                subcategory="Bamboo",
                 density_g_cm3=0.7,
                 yield_strength_mpa=100,
                 tensile_strength_mpa=140,

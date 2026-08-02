@@ -58,6 +58,105 @@ competing goals at once (strength, stiffness, and cost together).
   selection goal and optional requirements by answering plain-English
   prompts, and get back a ranked shortlist - no Python required.
 
+## Version 4: Advanced Search & Filtering
+
+Part 2 finds the single *best* material for a goal. Version 4 adds a
+complementary tool for a different job: **browsing and exploring** the
+catalog by searching, filtering, and sorting - useful for looking up a
+specific alloy, checking every material in a category, or building a
+shortlist by hand.
+
+### New features
+
+- **`src/search.py`** - the Version 4 search & filtering engine:
+  - **Search** by `name`, `category`, or `subcategory` (every material
+    now has a subcategory, e.g. "6xxx Series (Al-Mg-Si)" within
+    "Aluminum Alloys", or "Austenitic Stainless" within "Stainless
+    Steels" - see `data/materials.csv`).
+  - **Filter** by range on any of: density, yield strength, tensile
+    strength, elastic modulus (stiffness), thermal conductivity,
+    electrical conductivity, melting point, and relative cost - plus a
+    minimum **corrosion resistance** rating.
+  - **Combine** any number of search terms and filters at once - they
+    all narrow the same result set together.
+  - **Sort** by density, strength, stiffness, cost, specific strength,
+    or specific stiffness (ascending/descending, with a sensible
+    default direction per property).
+  - **Database statistics** (`get_statistics` / `print_statistics`) -
+    total material count, per-category counts, average density and
+    strength, and the current "record holders" for strongest, lightest,
+    and cheapest material.
+- **`src/cli.py`** now opens with a main menu so you can jump straight
+  to the material selector (Part 2), the new search & filter tool, or
+  database statistics - all from one interactive session.
+
+### Using the search engine yourself
+
+```python
+from src.database import MaterialDatabase
+from src.search import SearchEngine
+
+db = MaterialDatabase("data/materials.csv")
+engine = SearchEngine(db.data)
+
+# Search by name, category, and/or subcategory (case-insensitive
+# substring match) - all given terms must match.
+results = engine.search(category="Aluminum", subcategory="7xxx")
+print(results)
+
+# Filter by one or more property ranges at once. Every *_range is a
+# (min, max) tuple - either side can be None for "no limit".
+results = engine.search(
+    density_range=(None, 5.0),          # g/cm3
+    tensile_strength_range=(400, None), # MPa
+    relative_cost_range=(None, 20.0),   # USD/kg
+    corrosion_resistance="Good",        # "Good" or better
+)
+print(results)
+
+# Combine search + filters + sorting in a single call.
+results = engine.search(
+    category="Titanium",
+    yield_strength_range=(700, None),
+    sort_by="specific_strength",   # density, strength, stiffness,
+    top_n=5,                       # cost, specific_strength,
+)                                  # or specific_stiffness
+print(results)
+```
+
+Every recognized range-filter keyword: `density_range`,
+`yield_strength_range`, `tensile_strength_range`,
+`elastic_modulus_range`, `thermal_conductivity_range`,
+`electrical_conductivity_range`, `melting_point_range`,
+`relative_cost_range`.
+
+### Database statistics
+
+```python
+from src.database import MaterialDatabase
+from src.search import get_statistics, print_statistics
+
+db = MaterialDatabase("data/materials.csv")
+
+print_statistics(db.data)   # pretty-printed summary
+
+stats = get_statistics(db.data)
+print(stats["total_materials"], "materials")
+print(stats["strongest_material"], stats["lightest_material"], stats["cheapest_material"])
+```
+
+### Searching interactively
+
+```bash
+python main.py --select
+```
+
+Then choose **"Search & filter materials"** from the menu: answer a
+few plain-English prompts (search terms, then optional property
+ranges, corrosion resistance, and sort order) to get a matching list
+of materials - or choose **"Database statistics"** for the summary
+above.
+
 ## Project structure
 
 ```
@@ -73,7 +172,8 @@ material-property-analyzer/
 │   ├── visualizer.py          # matplotlib chart generation
 │   ├── scoring.py             # Part 2: 0-100 scores & weighted match score
 │   ├── selection_engine.py    # Part 2: filter + rank materials by goal
-│   └── cli.py                 # Part 2: interactive material selector
+│   ├── search.py              # Version 4: search, filter, sort & stats
+│   └── cli.py                 # Interactive menu: selector, search, stats
 ├── main.py                    # Run the full analysis end-to-end
 ├── requirements.txt
 ├── .gitignore
@@ -103,7 +203,8 @@ material-property-analyzer/
 
    This will print material rankings and comparisons to the terminal,
    save three charts into `output/`, and finish with a demo of the Part 2
-   selection engine:
+   selection engine and the Version 4 search & filter tool / database
+   statistics:
 
    - `strength_to_weight_ranking.png` - bar chart ranking materials by
      specific strength
@@ -112,17 +213,24 @@ material-property-analyzer/
    - `material_comparison.png` - a normalized side-by-side comparison of
      hand-picked materials
 
-4. **Or, pick a material interactively (Part 2):**
+4. **Or, use the interactive CLI (material selector, search & filter,
+   database statistics):**
 
    ```bash
    python main.py --select
    ```
 
-   This skips the demo report and launches an interactive prompt where
-   you choose a selection goal (e.g. "lightweight & strong") and
-   optional requirements (max cost, max density, category, ...), then
-   prints a ranked shortlist of the best-matching materials. You can
-   also run it directly with `python -m src.cli`.
+   This skips the demo report and opens a menu where you can:
+   - run the Part 2 **material selector** - choose a selection goal
+     (e.g. "lightweight & strong") and optional requirements (max
+     cost, max density, category, ...), then get a ranked shortlist;
+   - run the Version 4 **search & filter tool** - search by name,
+     category, or subcategory, filter by any number of property
+     ranges or corrosion resistance, and sort the results; or
+   - view Version 4 **database statistics** - category counts,
+     averages, and the strongest/lightest/cheapest material.
+
+   You can also run it directly with `python -m src.cli`.
 
 ## The materials database (`data/materials.csv`)
 
@@ -139,6 +247,7 @@ Each row describes one material with these columns:
 |---|---|---|
 | `name` | Material name, e.g. "Aluminum 6061-T6" | - |
 | `category` | One of the 17 categories listed above | - |
+| `subcategory` | A finer classification within the category, e.g. "6xxx Series (Al-Mg-Si)" within "Aluminum Alloys" - added in Version 4 to support searching | - |
 | `density_g_cm3` | Mass per unit volume | g/cm³ |
 | `yield_strength_mpa` | Stress at which the material starts to permanently deform | MPa |
 | `tensile_strength_mpa` | Ultimate tensile strength - the stress at which the material breaks | MPa |
@@ -208,6 +317,7 @@ db = MaterialDatabase("data/materials.csv")
 db.add_material(
     name="Rattan (Bamboo Cane)",
     category="Wood",
+    subcategory="Bamboo",
     density_g_cm3=0.7,
     yield_strength_mpa=100,
     tensile_strength_mpa=140,

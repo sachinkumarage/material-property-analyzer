@@ -1,110 +1,110 @@
-name,category,density_g_cm3,yield_strength_mpa,tensile_strength_mpa,elastic_modulus_gpa,poisson_ratio,hardness_value,hardness_scale,thermal_conductivity_w_mk,electrical_conductivity_percent_iacs,melting_point_c,fatigue_strength_mpa,cost_usd_per_kg,corrosion_resistance
-AISI 1010 (Hot-Rolled),Carbon Steels,7.87,180,325,200,0.29,95,HB,49.8,12,1530,170,0.7,Poor
-AISI 1018 (Cold-Drawn),Carbon Steels,7.87,370,440,205,0.29,126,HB,51.9,12,1520,220,0.75,Poor
-AISI 1020,Carbon Steels,7.87,205,380,200,0.29,111,HB,51.9,11,1515,190,0.7,Poor
-AISI 1045,Carbon Steels,7.85,310,565,200,0.29,163,HB,49.8,10,1480,280,0.85,Poor
-AISI 1080,Carbon Steels,7.84,480,615,200,0.30,192,HB,46.9,9,1450,310,0.9,Poor
-Structural Steel A36,Carbon Steels,7.85,250,400,200,0.26,119,HB,51.9,10,1480,200,0.8,Poor
-AISI 4140 (Q&T),Carbon Steels,7.85,655,1020,205,0.29,302,HB,42.6,9,1416,510,1.3,Poor
-AISI 4340 (Q&T),Carbon Steels,7.85,862,1282,200,0.29,375,HB,44.5,8.5,1427,640,1.6,Poor
-Stainless Steel 304,Stainless Steels,8.00,215,505,193,0.29,201,HB,16.2,2.5,1425,240,3.0,Excellent
-Stainless Steel 316,Stainless Steels,8.00,205,515,193,0.30,217,HB,16.3,2.4,1390,250,3.6,Excellent
-Stainless Steel 316L,Stainless Steels,8.00,170,485,193,0.30,149,HB,16.3,2.4,1390,230,3.7,Excellent
-Stainless Steel 410,Stainless Steels,7.80,275,485,200,0.28,155,HB,24.9,3.1,1500,220,2.5,Good
-Stainless Steel 420,Stainless Steels,7.75,345,655,200,0.28,50,HRC,24.9,3.0,1480,310,2.6,Good
-Stainless Steel 430,Stainless Steels,7.70,310,450,200,0.28,155,HB,26.1,3.3,1480,215,2.3,Good
-Stainless Steel 17-4PH,Stainless Steels,7.75,1170,1310,196,0.27,388,HB,18.0,2.8,1420,650,5.0,Good
-Stainless Steel 201,Stainless Steels,7.80,260,655,197,0.29,217,HB,16.3,2.5,1420,280,2.8,Good
-Tool Steel O1,Tool Steels,7.85,1380,1650,207,0.30,61,HRC,21.0,5.0,1430,700,4.0,Poor
-Tool Steel A2,Tool Steels,7.86,1500,1790,203,0.30,60,HRC,24.0,5.5,1425,750,4.5,Fair
-Tool Steel D2,Tool Steels,7.70,1500,1900,210,0.30,61,HRC,20.0,4.0,1421,800,5.5,Fair
-Tool Steel H13,Tool Steels,7.80,1350,1600,210,0.30,52,HRC,24.3,5.0,1427,680,5.0,Fair
-Tool Steel M2 (HSS),Tool Steels,8.10,1520,2170,220,0.30,65,HRC,19.8,4.5,1420,850,7.0,Poor
-Tool Steel S7,Tool Steels,7.75,1450,1930,210,0.30,57,HRC,22.0,5.0,1430,780,5.2,Fair
-Aluminum 1100,Aluminum Alloys,2.71,34,90,69,0.33,23,HB,218,59,660,34,2.0,Excellent
-Aluminum 2024-T3,Aluminum Alloys,2.78,345,483,73.1,0.33,120,HB,121,30,638,138,3.5,Fair
-Aluminum 3003-H14,Aluminum Alloys,2.73,145,150,69,0.33,40,HB,159,42,650,60,2.1,Excellent
-Aluminum 5052-H32,Aluminum Alloys,2.68,193,228,70.3,0.33,60,HB,138,35,630,110,2.3,Excellent
-Aluminum 6061-T6,Aluminum Alloys,2.70,276,310,68.9,0.33,95,HB,167,43,652,96,2.2,Good
-Aluminum 6063-T5,Aluminum Alloys,2.70,145,186,68.3,0.33,60,HB,201,53,655,62,2.1,Good
-Aluminum 7075-T6,Aluminum Alloys,2.81,503,572,71.7,0.33,150,HB,130,33,635,159,4.0,Fair
-Aluminum 7050-T7451,Aluminum Alloys,2.83,469,552,71.7,0.33,147,HB,157,40,630,150,4.3,Good
-Titanium Grade 2 (CP),Titanium Alloys,4.51,275,345,103,0.34,200,HB,16.4,3.1,1660,240,15.0,Excellent
-Titanium Ti-6Al-4V,Titanium Alloys,4.43,880,950,113.8,0.34,334,HB,6.7,3.1,1660,510,20.0,Excellent
-Titanium Ti-6Al-4V ELI,Titanium Alloys,4.43,795,860,114,0.34,320,HB,7.3,3.1,1650,470,25.0,Excellent
-Titanium Ti-3Al-2.5V,Titanium Alloys,4.48,483,620,100,0.34,253,HB,8.2,3.1,1600,300,22.0,Excellent
-Titanium Beta-C,Titanium Alloys,4.82,1207,1276,96,0.34,388,HB,7.5,2.8,1650,590,38.0,Excellent
-Magnesium AZ31B,Magnesium Alloys,1.77,200,260,45,0.35,73,HB,96,22,630,97,5.5,Poor
-Magnesium AZ91D,Magnesium Alloys,1.81,160,230,45,0.35,63,HB,72,8,595,70,4.5,Poor
-Magnesium ZK60A,Magnesium Alloys,1.83,305,365,45,0.35,88,HB,121,28,635,130,7.0,Poor
-Magnesium WE43,Magnesium Alloys,1.84,195,250,44,0.35,75,HB,51,10,610,105,25.0,Fair
-Copper C11000 (ETP),Copper Alloys,8.94,69,220,117,0.34,40,HB,391,101,1083,97,8.5,Good
-Beryllium Copper C17200,Copper Alloys,8.25,1100,1310,131,0.30,40,HRC,105,22,980,380,45.0,Good
-Brass C26000 (Cartridge),Copper Alloys,8.53,125,340,110,0.34,65,HB,120,28,940,140,6.0,Good
-Brass C36000 (Free-Cutting),Copper Alloys,8.50,145,385,97,0.34,78,HB,115,26,900,105,5.8,Good
-Phosphor Bronze C51000,Copper Alloys,8.86,310,480,110,0.33,145,HB,84,13,1000,210,9.0,Good
-Aluminum Bronze C63000,Copper Alloys,7.58,379,690,115,0.32,187,HB,42,7,1050,280,11.0,Excellent
-Cupronickel C71500,Copper Alloys,8.94,140,380,150,0.34,65,HB,29,4.6,1200,170,12.0,Excellent
-Inconel 600,Nickel Alloys,8.47,310,655,214,0.29,145,HB,14.9,1.7,1390,290,28.0,Excellent
-Inconel 625,Nickel Alloys,8.44,460,930,205.8,0.31,220,HB,9.8,1.4,1320,400,35.0,Excellent
-Inconel 718,Nickel Alloys,8.19,1100,1375,200,0.29,388,HB,11.4,1.4,1300,620,45.0,Excellent
-Monel 400,Nickel Alloys,8.80,240,550,179,0.32,130,HB,21.8,3.3,1330,260,22.0,Excellent
-Hastelloy C276,Nickel Alloys,8.89,355,785,205,0.31,210,HB,10.2,1.3,1350,350,55.0,Excellent
-Nichrome 80/20,Nickel Alloys,8.40,400,655,220,0.31,150,HB,11.3,1.6,1400,280,18.0,Excellent
-Gray Cast Iron Class 20,Cast Irons,7.15,131,152,85,0.26,156,HB,46,3,1190,69,0.9,Poor
-Gray Cast Iron Class 40,Cast Irons,7.20,260,293,125,0.26,235,HB,48,3,1180,130,1.0,Poor
-Ductile Iron 60-40-18,Cast Irons,7.10,276,414,169,0.29,149,HB,36,3.5,1160,200,1.3,Fair
-Ductile Iron 80-55-06,Cast Irons,7.10,379,552,168,0.29,240,HB,33,3.2,1160,250,1.4,Fair
-White Cast Iron,Cast Irons,7.70,448,460,180,0.26,480,HB,25,2,1150,180,1.1,Poor
-Malleable Iron,Cast Irons,7.27,235,345,172,0.27,130,HB,51,3.5,1250,170,1.2,Fair
-Alumina (Al2O3),Ceramics,3.90,300,300,370,0.22,1500,HV,30,0,2072,90,15.0,Excellent
-Zirconia (YSZ),Ceramics,6.05,900,900,205,0.30,1250,HV,2.0,0,2715,300,40.0,Excellent
-Silicon Carbide (SiC),Ceramics,3.21,550,550,410,0.14,2500,HV,120,0,2730,200,20.0,Excellent
-Silicon Nitride (Si3N4),Ceramics,3.20,700,700,310,0.27,1600,HV,30,0,1900,250,45.0,Excellent
-Boron Carbide (B4C),Ceramics,2.52,350,350,460,0.17,3000,HV,30,0,2450,100,60.0,Excellent
-Tungsten Carbide (WC-Co),Ceramics,15.63,2000,2000,600,0.24,1600,HV,110,5,2870,700,35.0,Good
-Aluminum Nitride (AlN),Ceramics,3.26,320,320,330,0.24,1200,HV,170,0,2200,110,50.0,Excellent
-Soda-Lime Glass,Glass,2.50,50,50,70,0.22,5.5,Mohs,1.0,0,730,15,0.5,Excellent
-Borosilicate Glass,Glass,2.23,55,55,64,0.20,6.5,Mohs,1.14,0,820,18,2.0,Excellent
-Fused Silica Glass,Glass,2.20,50,50,72,0.17,7.0,Mohs,1.4,0,1650,15,8.0,Excellent
-Tempered Soda-Lime Glass,Glass,2.50,150,150,70,0.22,6.0,Mohs,1.0,0,730,50,1.5,Excellent
-Glass-Ceramic (Macor),Glass,2.52,94,94,66.9,0.29,6.0,Mohs,1.46,0,1000,30,12.0,Excellent
-ABS Plastic,Polymers,1.05,40,40,2.3,0.35,85,Shore D,0.17,0,105,12,2.0,Excellent
-Nylon 6/6,Polymers,1.14,45,75,2.8,0.39,80,Shore D,0.25,0,260,24,3.5,Excellent
-Polycarbonate (PC),Polymers,1.20,62,65,2.4,0.37,82,Shore D,0.20,0,150,20,3.8,Excellent
-PEEK,Polymers,1.32,97,100,3.6,0.40,85,Shore D,0.25,0,343,35,90.0,Excellent
-PET Plastic,Polymers,1.38,55,60,2.8,0.40,80,Shore D,0.24,0,260,20,1.8,Excellent
-Acrylic (PMMA),Polymers,1.18,70,72,3.1,0.37,90,Shore D,0.19,0,160,20,3.0,Excellent
-Polypropylene (PP),Polymers,0.905,32,34,1.5,0.42,72,Shore D,0.12,0,165,12,1.5,Excellent
-HDPE,Polymers,0.955,26,30,1.0,0.42,65,Shore D,0.45,0,130,10,1.4,Excellent
-LDPE,Polymers,0.92,10,12,0.25,0.44,45,Shore D,0.33,0,110,4,1.5,Excellent
-Rigid PVC,Polymers,1.40,45,52,3.0,0.38,82,Shore D,0.19,0,160,16,1.6,Excellent
-PTFE (Teflon),Polymers,2.20,14,25,0.5,0.46,55,Shore D,0.25,0,327,7,12.0,Excellent
-Natural Rubber (NR),Elastomers,0.93,15,25,0.002,0.49,40,Shore A,0.13,0,180,8,2.5,Good
-Neoprene (CR),Elastomers,1.23,12,20,0.003,0.49,55,Shore A,0.19,0,200,6,4.5,Excellent
-Silicone Rubber,Elastomers,1.20,6,10,0.001,0.49,50,Shore A,0.20,0,300,3,8.0,Excellent
-EPDM Rubber,Elastomers,1.15,10,17,0.003,0.49,60,Shore A,0.16,0,220,5,3.5,Excellent
-Polyurethane Elastomer,Elastomers,1.21,25,40,0.02,0.48,85,Shore A,0.29,0,220,14,5.5,Good
-Nitrile Rubber (NBR),Elastomers,1.00,12,20,0.004,0.49,65,Shore A,0.18,0,200,7,3.8,Good
-Carbon Fiber Composite (CFRP),Composites,1.60,1500,1500,135,0.30,60,Barcol,5.0,1.0,300,600,30.0,Excellent
-Carbon Fiber Composite (CFRP) - Woven,Composites,1.55,600,600,70,0.30,55,Barcol,3.0,0.8,300,240,32.0,Excellent
-Fiberglass (E-glass Epoxy),Composites,1.90,400,400,25,0.28,45,Barcol,0.3,0,300,120,5.0,Good
-Kevlar-Epoxy Composite,Composites,1.38,1240,1240,76,0.34,50,Barcol,0.9,0,300,500,45.0,Good
-GFRP (Chopped Strand),Composites,1.80,100,100,8,0.30,40,Barcol,0.3,0,300,30,3.5,Good
-Carbon-Kevlar Hybrid Composite,Composites,1.45,900,900,90,0.31,55,Barcol,2.5,0.5,300,360,55.0,Excellent
-Oak Wood (White Oak),Wood,0.75,60,100,12,0.35,1360,Janka,0.17,0,300,35,1.5,Fair
-Balsa Wood,Wood,0.16,15,20,3.5,0.30,90,Janka,0.05,0,300,6,8.0,Fair
-Southern Yellow Pine,Wood,0.59,40,75,12.3,0.33,690,Janka,0.12,0,300,25,0.8,Fair
-Maple (Hard),Wood,0.71,54,109,12.6,0.35,1450,Janka,0.16,0,300,38,2.0,Fair
-Douglas Fir,Wood,0.53,37,85,13.4,0.33,660,Janka,0.13,0,300,28,1.0,Fair
-Bamboo (Structural),Wood,0.70,60,140,17,0.30,1380,Janka,0.17,0,300,45,1.2,Fair
-Birch Plywood,Wood,0.68,35,55,9.0,0.30,1010,Janka,0.14,0,300,18,1.8,Fair
-Standard Concrete,Concrete,2.40,25,25,25,0.20,4.0,Mohs,1.4,0,1450,12,0.1,Fair
-High-Strength Concrete,Concrete,2.45,70,70,37,0.20,5.0,Mohs,1.6,0,1450,35,0.25,Good
-Reinforced Concrete,Concrete,2.50,30,30,30,0.20,4.0,Mohs,1.7,0,1450,15,0.3,Fair
-Lightweight Concrete,Concrete,1.60,12,12,10,0.20,3.0,Mohs,0.3,0,1450,6,0.2,Fair
-Cork,Natural Materials,0.24,1.4,2.0,0.02,0.00,30,Shore A,0.04,0,350,1,6.0,Good
-Leather (Vegetable-Tanned),Natural Materials,0.86,15,20,0.1,0.35,70,Shore A,0.15,0,200,6,12.0,Fair
-Bone (Human Cortical),Natural Materials,1.90,104,130,18,0.30,3.0,Mohs,0.40,0,200,55,5.0,Fair
-Silk Fiber,Natural Materials,1.31,250,500,10,0.40,60,Shore A,0.05,0,175,150,300.0,Fair
-Wool Fiber,Natural Materials,1.31,100,150,3.5,0.35,55,Shore A,0.04,0,130,45,15.0,Fair
+name,category,subcategory,density_g_cm3,yield_strength_mpa,tensile_strength_mpa,elastic_modulus_gpa,poisson_ratio,hardness_value,hardness_scale,thermal_conductivity_w_mk,electrical_conductivity_percent_iacs,melting_point_c,fatigue_strength_mpa,cost_usd_per_kg,corrosion_resistance
+AISI 1010 (Hot-Rolled),Carbon Steels,Low-Carbon Steel,7.87,180.0,325.0,200.0,0.29,95.0,HB,49.8,12.0,1530,170,0.7,Poor
+AISI 1018 (Cold-Drawn),Carbon Steels,Low-Carbon Steel,7.87,370.0,440.0,205.0,0.29,126.0,HB,51.9,12.0,1520,220,0.75,Poor
+AISI 1020,Carbon Steels,Low-Carbon Steel,7.87,205.0,380.0,200.0,0.29,111.0,HB,51.9,11.0,1515,190,0.7,Poor
+AISI 1045,Carbon Steels,Medium-Carbon Steel,7.85,310.0,565.0,200.0,0.29,163.0,HB,49.8,10.0,1480,280,0.85,Poor
+AISI 1080,Carbon Steels,High-Carbon Steel,7.84,480.0,615.0,200.0,0.3,192.0,HB,46.9,9.0,1450,310,0.9,Poor
+Structural Steel A36,Carbon Steels,Structural Steel,7.85,250.0,400.0,200.0,0.26,119.0,HB,51.9,10.0,1480,200,0.8,Poor
+AISI 4140 (Q&T),Carbon Steels,Alloy Steel (Q&T),7.85,655.0,1020.0,205.0,0.29,302.0,HB,42.6,9.0,1416,510,1.3,Poor
+AISI 4340 (Q&T),Carbon Steels,Alloy Steel (Q&T),7.85,862.0,1282.0,200.0,0.29,375.0,HB,44.5,8.5,1427,640,1.6,Poor
+Stainless Steel 304,Stainless Steels,Austenitic Stainless,8.0,215.0,505.0,193.0,0.29,201.0,HB,16.2,2.5,1425,240,3.0,Excellent
+Stainless Steel 316,Stainless Steels,Austenitic Stainless,8.0,205.0,515.0,193.0,0.3,217.0,HB,16.3,2.4,1390,250,3.6,Excellent
+Stainless Steel 316L,Stainless Steels,Austenitic Stainless,8.0,170.0,485.0,193.0,0.3,149.0,HB,16.3,2.4,1390,230,3.7,Excellent
+Stainless Steel 410,Stainless Steels,Martensitic Stainless,7.8,275.0,485.0,200.0,0.28,155.0,HB,24.9,3.1,1500,220,2.5,Good
+Stainless Steel 420,Stainless Steels,Martensitic Stainless,7.75,345.0,655.0,200.0,0.28,50.0,HRC,24.9,3.0,1480,310,2.6,Good
+Stainless Steel 430,Stainless Steels,Ferritic Stainless,7.7,310.0,450.0,200.0,0.28,155.0,HB,26.1,3.3,1480,215,2.3,Good
+Stainless Steel 17-4PH,Stainless Steels,Precipitation-Hardening Stainless,7.75,1170.0,1310.0,196.0,0.27,388.0,HB,18.0,2.8,1420,650,5.0,Good
+Stainless Steel 201,Stainless Steels,Austenitic Stainless,7.8,260.0,655.0,197.0,0.29,217.0,HB,16.3,2.5,1420,280,2.8,Good
+Tool Steel O1,Tool Steels,Oil-Hardening Tool Steel,7.85,1380.0,1650.0,207.0,0.3,61.0,HRC,21.0,5.0,1430,700,4.0,Poor
+Tool Steel A2,Tool Steels,Air-Hardening Tool Steel,7.86,1500.0,1790.0,203.0,0.3,60.0,HRC,24.0,5.5,1425,750,4.5,Fair
+Tool Steel D2,Tool Steels,High-Carbon High-Chromium Tool Steel,7.7,1500.0,1900.0,210.0,0.3,61.0,HRC,20.0,4.0,1421,800,5.5,Fair
+Tool Steel H13,Tool Steels,Hot-Work Tool Steel,7.8,1350.0,1600.0,210.0,0.3,52.0,HRC,24.3,5.0,1427,680,5.0,Fair
+Tool Steel M2 (HSS),Tool Steels,High-Speed Tool Steel,8.1,1520.0,2170.0,220.0,0.3,65.0,HRC,19.8,4.5,1420,850,7.0,Poor
+Tool Steel S7,Tool Steels,Shock-Resisting Tool Steel,7.75,1450.0,1930.0,210.0,0.3,57.0,HRC,22.0,5.0,1430,780,5.2,Fair
+Aluminum 1100,Aluminum Alloys,1xxx Series (Pure Aluminum),2.71,34.0,90.0,69.0,0.33,23.0,HB,218.0,59.0,660,34,2.0,Excellent
+Aluminum 2024-T3,Aluminum Alloys,2xxx Series (Al-Cu),2.78,345.0,483.0,73.1,0.33,120.0,HB,121.0,30.0,638,138,3.5,Fair
+Aluminum 3003-H14,Aluminum Alloys,3xxx Series (Al-Mn),2.73,145.0,150.0,69.0,0.33,40.0,HB,159.0,42.0,650,60,2.1,Excellent
+Aluminum 5052-H32,Aluminum Alloys,5xxx Series (Al-Mg),2.68,193.0,228.0,70.3,0.33,60.0,HB,138.0,35.0,630,110,2.3,Excellent
+Aluminum 6061-T6,Aluminum Alloys,6xxx Series (Al-Mg-Si),2.7,276.0,310.0,68.9,0.33,95.0,HB,167.0,43.0,652,96,2.2,Good
+Aluminum 6063-T5,Aluminum Alloys,6xxx Series (Al-Mg-Si),2.7,145.0,186.0,68.3,0.33,60.0,HB,201.0,53.0,655,62,2.1,Good
+Aluminum 7075-T6,Aluminum Alloys,7xxx Series (Al-Zn),2.81,503.0,572.0,71.7,0.33,150.0,HB,130.0,33.0,635,159,4.0,Fair
+Aluminum 7050-T7451,Aluminum Alloys,7xxx Series (Al-Zn),2.83,469.0,552.0,71.7,0.33,147.0,HB,157.0,40.0,630,150,4.3,Good
+Titanium Grade 2 (CP),Titanium Alloys,Commercially Pure Titanium,4.51,275.0,345.0,103.0,0.34,200.0,HB,16.4,3.1,1660,240,15.0,Excellent
+Titanium Ti-6Al-4V,Titanium Alloys,Alpha-Beta Titanium Alloy,4.43,880.0,950.0,113.8,0.34,334.0,HB,6.7,3.1,1660,510,20.0,Excellent
+Titanium Ti-6Al-4V ELI,Titanium Alloys,Alpha-Beta Titanium Alloy,4.43,795.0,860.0,114.0,0.34,320.0,HB,7.3,3.1,1650,470,25.0,Excellent
+Titanium Ti-3Al-2.5V,Titanium Alloys,Near-Alpha Titanium Alloy,4.48,483.0,620.0,100.0,0.34,253.0,HB,8.2,3.1,1600,300,22.0,Excellent
+Titanium Beta-C,Titanium Alloys,Beta Titanium Alloy,4.82,1207.0,1276.0,96.0,0.34,388.0,HB,7.5,2.8,1650,590,38.0,Excellent
+Magnesium AZ31B,Magnesium Alloys,AZ Series (Al-Zn),1.77,200.0,260.0,45.0,0.35,73.0,HB,96.0,22.0,630,97,5.5,Poor
+Magnesium AZ91D,Magnesium Alloys,AZ Series (Al-Zn),1.81,160.0,230.0,45.0,0.35,63.0,HB,72.0,8.0,595,70,4.5,Poor
+Magnesium ZK60A,Magnesium Alloys,ZK Series (Zn-Zr),1.83,305.0,365.0,45.0,0.35,88.0,HB,121.0,28.0,635,130,7.0,Poor
+Magnesium WE43,Magnesium Alloys,WE Series (Rare-Earth),1.84,195.0,250.0,44.0,0.35,75.0,HB,51.0,10.0,610,105,25.0,Fair
+Copper C11000 (ETP),Copper Alloys,Pure Copper,8.94,69.0,220.0,117.0,0.34,40.0,HB,391.0,101.0,1083,97,8.5,Good
+Beryllium Copper C17200,Copper Alloys,Beryllium Copper,8.25,1100.0,1310.0,131.0,0.3,40.0,HRC,105.0,22.0,980,380,45.0,Good
+Brass C26000 (Cartridge),Copper Alloys,Brass,8.53,125.0,340.0,110.0,0.34,65.0,HB,120.0,28.0,940,140,6.0,Good
+Brass C36000 (Free-Cutting),Copper Alloys,Brass,8.5,145.0,385.0,97.0,0.34,78.0,HB,115.0,26.0,900,105,5.8,Good
+Phosphor Bronze C51000,Copper Alloys,Phosphor Bronze,8.86,310.0,480.0,110.0,0.33,145.0,HB,84.0,13.0,1000,210,9.0,Good
+Aluminum Bronze C63000,Copper Alloys,Aluminum Bronze,7.58,379.0,690.0,115.0,0.32,187.0,HB,42.0,7.0,1050,280,11.0,Excellent
+Cupronickel C71500,Copper Alloys,Cupronickel,8.94,140.0,380.0,150.0,0.34,65.0,HB,29.0,4.6,1200,170,12.0,Excellent
+Inconel 600,Nickel Alloys,Inconel (Ni-Cr),8.47,310.0,655.0,214.0,0.29,145.0,HB,14.9,1.7,1390,290,28.0,Excellent
+Inconel 625,Nickel Alloys,Inconel (Ni-Cr),8.44,460.0,930.0,205.8,0.31,220.0,HB,9.8,1.4,1320,400,35.0,Excellent
+Inconel 718,Nickel Alloys,Inconel (Ni-Cr),8.19,1100.0,1375.0,200.0,0.29,388.0,HB,11.4,1.4,1300,620,45.0,Excellent
+Monel 400,Nickel Alloys,Monel (Ni-Cu),8.8,240.0,550.0,179.0,0.32,130.0,HB,21.8,3.3,1330,260,22.0,Excellent
+Hastelloy C276,Nickel Alloys,Hastelloy (Ni-Mo-Cr),8.89,355.0,785.0,205.0,0.31,210.0,HB,10.2,1.3,1350,350,55.0,Excellent
+Nichrome 80/20,Nickel Alloys,Nichrome (Ni-Cr Resistance Alloy),8.4,400.0,655.0,220.0,0.31,150.0,HB,11.3,1.6,1400,280,18.0,Excellent
+Gray Cast Iron Class 20,Cast Irons,Gray Iron,7.15,131.0,152.0,85.0,0.26,156.0,HB,46.0,3.0,1190,69,0.9,Poor
+Gray Cast Iron Class 40,Cast Irons,Gray Iron,7.2,260.0,293.0,125.0,0.26,235.0,HB,48.0,3.0,1180,130,1.0,Poor
+Ductile Iron 60-40-18,Cast Irons,Ductile Iron,7.1,276.0,414.0,169.0,0.29,149.0,HB,36.0,3.5,1160,200,1.3,Fair
+Ductile Iron 80-55-06,Cast Irons,Ductile Iron,7.1,379.0,552.0,168.0,0.29,240.0,HB,33.0,3.2,1160,250,1.4,Fair
+White Cast Iron,Cast Irons,White Iron,7.7,448.0,460.0,180.0,0.26,480.0,HB,25.0,2.0,1150,180,1.1,Poor
+Malleable Iron,Cast Irons,Malleable Iron,7.27,235.0,345.0,172.0,0.27,130.0,HB,51.0,3.5,1250,170,1.2,Fair
+Alumina (Al2O3),Ceramics,Oxide Ceramic,3.9,300.0,300.0,370.0,0.22,1500.0,HV,30.0,0.0,2072,90,15.0,Excellent
+Zirconia (YSZ),Ceramics,Oxide Ceramic,6.05,900.0,900.0,205.0,0.3,1250.0,HV,2.0,0.0,2715,300,40.0,Excellent
+Silicon Carbide (SiC),Ceramics,Non-Oxide Ceramic,3.21,550.0,550.0,410.0,0.14,2500.0,HV,120.0,0.0,2730,200,20.0,Excellent
+Silicon Nitride (Si3N4),Ceramics,Non-Oxide Ceramic,3.2,700.0,700.0,310.0,0.27,1600.0,HV,30.0,0.0,1900,250,45.0,Excellent
+Boron Carbide (B4C),Ceramics,Non-Oxide Ceramic,2.52,350.0,350.0,460.0,0.17,3000.0,HV,30.0,0.0,2450,100,60.0,Excellent
+Tungsten Carbide (WC-Co),Ceramics,Cemented Carbide,15.63,2000.0,2000.0,600.0,0.24,1600.0,HV,110.0,5.0,2870,700,35.0,Good
+Aluminum Nitride (AlN),Ceramics,Non-Oxide Ceramic,3.26,320.0,320.0,330.0,0.24,1200.0,HV,170.0,0.0,2200,110,50.0,Excellent
+Soda-Lime Glass,Glass,Soda-Lime Glass,2.5,50.0,50.0,70.0,0.22,5.5,Mohs,1.0,0.0,730,15,0.5,Excellent
+Borosilicate Glass,Glass,Borosilicate Glass,2.23,55.0,55.0,64.0,0.2,6.5,Mohs,1.14,0.0,820,18,2.0,Excellent
+Fused Silica Glass,Glass,Fused Silica Glass,2.2,50.0,50.0,72.0,0.17,7.0,Mohs,1.4,0.0,1650,15,8.0,Excellent
+Tempered Soda-Lime Glass,Glass,Soda-Lime Glass,2.5,150.0,150.0,70.0,0.22,6.0,Mohs,1.0,0.0,730,50,1.5,Excellent
+Glass-Ceramic (Macor),Glass,Glass-Ceramic,2.52,94.0,94.0,66.9,0.29,6.0,Mohs,1.46,0.0,1000,30,12.0,Excellent
+ABS Plastic,Polymers,Engineering Thermoplastic,1.05,40.0,40.0,2.3,0.35,85.0,Shore D,0.17,0.0,105,12,2.0,Excellent
+Nylon 6/6,Polymers,Engineering Thermoplastic,1.14,45.0,75.0,2.8,0.39,80.0,Shore D,0.25,0.0,260,24,3.5,Excellent
+Polycarbonate (PC),Polymers,Engineering Thermoplastic,1.2,62.0,65.0,2.4,0.37,82.0,Shore D,0.2,0.0,150,20,3.8,Excellent
+PEEK,Polymers,High-Performance Thermoplastic,1.32,97.0,100.0,3.6,0.4,85.0,Shore D,0.25,0.0,343,35,90.0,Excellent
+PET Plastic,Polymers,Commodity Thermoplastic,1.38,55.0,60.0,2.8,0.4,80.0,Shore D,0.24,0.0,260,20,1.8,Excellent
+Acrylic (PMMA),Polymers,Engineering Thermoplastic,1.18,70.0,72.0,3.1,0.37,90.0,Shore D,0.19,0.0,160,20,3.0,Excellent
+Polypropylene (PP),Polymers,Commodity Thermoplastic,0.905,32.0,34.0,1.5,0.42,72.0,Shore D,0.12,0.0,165,12,1.5,Excellent
+HDPE,Polymers,Commodity Thermoplastic,0.955,26.0,30.0,1.0,0.42,65.0,Shore D,0.45,0.0,130,10,1.4,Excellent
+LDPE,Polymers,Commodity Thermoplastic,0.92,10.0,12.0,0.25,0.44,45.0,Shore D,0.33,0.0,110,4,1.5,Excellent
+Rigid PVC,Polymers,Engineering Thermoplastic,1.4,45.0,52.0,3.0,0.38,82.0,Shore D,0.19,0.0,160,16,1.6,Excellent
+PTFE (Teflon),Polymers,High-Performance Thermoplastic,2.2,14.0,25.0,0.5,0.46,55.0,Shore D,0.25,0.0,327,7,12.0,Excellent
+Natural Rubber (NR),Elastomers,Natural Rubber,0.93,15.0,25.0,0.002,0.49,40.0,Shore A,0.13,0.0,180,8,2.5,Good
+Neoprene (CR),Elastomers,Synthetic Rubber,1.23,12.0,20.0,0.003,0.49,55.0,Shore A,0.19,0.0,200,6,4.5,Excellent
+Silicone Rubber,Elastomers,Synthetic Rubber,1.2,6.0,10.0,0.001,0.49,50.0,Shore A,0.2,0.0,300,3,8.0,Excellent
+EPDM Rubber,Elastomers,Synthetic Rubber,1.15,10.0,17.0,0.003,0.49,60.0,Shore A,0.16,0.0,220,5,3.5,Excellent
+Polyurethane Elastomer,Elastomers,Synthetic Rubber,1.21,25.0,40.0,0.02,0.48,85.0,Shore A,0.29,0.0,220,14,5.5,Good
+Nitrile Rubber (NBR),Elastomers,Synthetic Rubber,1.0,12.0,20.0,0.004,0.49,65.0,Shore A,0.18,0.0,200,7,3.8,Good
+Carbon Fiber Composite (CFRP),Composites,Carbon Fiber Composite,1.6,1500.0,1500.0,135.0,0.3,60.0,Barcol,5.0,1.0,300,600,30.0,Excellent
+Carbon Fiber Composite (CFRP) - Woven,Composites,Carbon Fiber Composite,1.55,600.0,600.0,70.0,0.3,55.0,Barcol,3.0,0.8,300,240,32.0,Excellent
+Fiberglass (E-glass Epoxy),Composites,Glass Fiber Composite,1.9,400.0,400.0,25.0,0.28,45.0,Barcol,0.3,0.0,300,120,5.0,Good
+Kevlar-Epoxy Composite,Composites,Aramid Fiber Composite,1.38,1240.0,1240.0,76.0,0.34,50.0,Barcol,0.9,0.0,300,500,45.0,Good
+GFRP (Chopped Strand),Composites,Glass Fiber Composite,1.8,100.0,100.0,8.0,0.3,40.0,Barcol,0.3,0.0,300,30,3.5,Good
+Carbon-Kevlar Hybrid Composite,Composites,Hybrid Fiber Composite,1.45,900.0,900.0,90.0,0.31,55.0,Barcol,2.5,0.5,300,360,55.0,Excellent
+Oak Wood (White Oak),Wood,Hardwood,0.75,60.0,100.0,12.0,0.35,1360.0,Janka,0.17,0.0,300,35,1.5,Fair
+Balsa Wood,Wood,Softwood,0.16,15.0,20.0,3.5,0.3,90.0,Janka,0.05,0.0,300,6,8.0,Fair
+Southern Yellow Pine,Wood,Softwood,0.59,40.0,75.0,12.3,0.33,690.0,Janka,0.12,0.0,300,25,0.8,Fair
+Maple (Hard),Wood,Hardwood,0.71,54.0,109.0,12.6,0.35,1450.0,Janka,0.16,0.0,300,38,2.0,Fair
+Douglas Fir,Wood,Softwood,0.53,37.0,85.0,13.4,0.33,660.0,Janka,0.13,0.0,300,28,1.0,Fair
+Bamboo (Structural),Wood,Bamboo,0.7,60.0,140.0,17.0,0.3,1380.0,Janka,0.17,0.0,300,45,1.2,Fair
+Birch Plywood,Wood,Engineered Wood,0.68,35.0,55.0,9.0,0.3,1010.0,Janka,0.14,0.0,300,18,1.8,Fair
+Standard Concrete,Concrete,Standard Concrete,2.4,25.0,25.0,25.0,0.2,4.0,Mohs,1.4,0.0,1450,12,0.1,Fair
+High-Strength Concrete,Concrete,High-Strength Concrete,2.45,70.0,70.0,37.0,0.2,5.0,Mohs,1.6,0.0,1450,35,0.25,Good
+Reinforced Concrete,Concrete,Reinforced Concrete,2.5,30.0,30.0,30.0,0.2,4.0,Mohs,1.7,0.0,1450,15,0.3,Fair
+Lightweight Concrete,Concrete,Lightweight Concrete,1.6,12.0,12.0,10.0,0.2,3.0,Mohs,0.3,0.0,1450,6,0.2,Fair
+Cork,Natural Materials,Plant-Based Material,0.24,1.4,2.0,0.02,0.0,30.0,Shore A,0.04,0.0,350,1,6.0,Good
+Leather (Vegetable-Tanned),Natural Materials,Animal-Based Material,0.86,15.0,20.0,0.1,0.35,70.0,Shore A,0.15,0.0,200,6,12.0,Fair
+Bone (Human Cortical),Natural Materials,Biological Material,1.9,104.0,130.0,18.0,0.3,3.0,Mohs,0.4,0.0,200,55,5.0,Fair
+Silk Fiber,Natural Materials,Animal Fiber,1.31,250.0,500.0,10.0,0.4,60.0,Shore A,0.05,0.0,175,150,300.0,Fair
+Wool Fiber,Natural Materials,Animal Fiber,1.31,100.0,150.0,3.5,0.35,55.0,Shore A,0.04,0.0,130,45,15.0,Fair
