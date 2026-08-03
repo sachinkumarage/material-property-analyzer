@@ -117,6 +117,7 @@ def plot_strength_to_weight_ranking(df, output_path: str, top_n: int = 10):
     fig.tight_layout()
     fig.savefig(output_path, dpi=150)
     plt.close(fig)
+    return fig
 
 
 def plot_strength_vs_density(df, output_path: str, max_labels: int = 30):
@@ -191,6 +192,7 @@ def plot_strength_vs_density(df, output_path: str, max_labels: int = 30):
     # above) is fully included in the saved image instead of being cut off.
     fig.savefig(output_path, dpi=150, bbox_inches="tight")
     plt.close(fig)
+    return fig
 
 
 def plot_material_comparison(df, names: list, output_path: str):
@@ -252,6 +254,7 @@ def plot_material_comparison(df, names: list, output_path: str):
     fig.tight_layout()
     fig.savefig(output_path, dpi=150)
     plt.close(fig)
+    return fig
 
 
 def generate_all_charts(df, output_dir: str, compare_names: list = None):

@@ -8,7 +8,10 @@ and cost properties.
 It reads a CSV database of over 100 materials across 17 categories,
 calculates the **strength-to-weight ratio** (and a few other useful
 engineering ratios), ranks and compares materials, and generates
-matplotlib charts to visualize the results.
+matplotlib charts to visualize the results. Version 5 adds an
+interactive **Streamlit web dashboard** (`app.py`) on top of the same
+engine - see [Version 5](#version-5-streamlit-web-dashboard) below - and
+every original command-line tool still works exactly as before.
 
 ## Why this matters (materials engineering 101)
 
@@ -157,6 +160,47 @@ ranges, corrosion resistance, and sort order) to get a matching list
 of materials - or choose **"Database statistics"** for the summary
 above.
 
+## Version 5: Streamlit Web Dashboard
+
+Version 5 adds `app.py`, an interactive browser dashboard built with
+[Streamlit](https://streamlit.io/). It's a thin UI layer on top of the
+exact same modules used by the CLI (`database.py`, `search.py`,
+`comparator.py`, `visualizer.py`, ...) - no engineering logic is
+duplicated, so the CLI and the dashboard always stay in sync.
+
+![Dashboard screenshot](docs/screenshot_01.png)
+
+### Running the dashboard
+
+```bash
+streamlit run app.py
+```
+
+This opens the dashboard in your browser at `http://localhost:8501`.
+Run it from the project root (same place you'd run `python main.py`).
+
+### What's in the dashboard
+
+- **Summary cards** - total materials, category count, average density,
+  and the current strongest material at a glance.
+- **Sidebar search & filters** - a text search box, category and
+  subcategory dropdowns, sliders for density/strength/cost ranges, and
+  a minimum corrosion-resistance selector. All filters combine, exactly
+  like `SearchEngine.search()` in `src/search.py`.
+- **Search Results tab** - a sortable results table (click any column
+  header to sort) and a material detail view showing every raw
+  engineering property plus the specific strength, specific stiffness,
+  and relative cost index for whichever material you select.
+- **Charts tab** - the same `strength_to_weight_ranking` and
+  `strength_vs_density` matplotlib charts from `src/visualizer.py`,
+  redrawn live for whatever the sidebar currently filters to.
+- **Compare Materials tab** - pick up to three materials for a
+  side-by-side table (raw properties + engineering ratios) and the
+  matching grouped-bar comparison chart.
+
+The original CLI keeps working unchanged - `python main.py` and
+`python main.py --select` are unaffected by the dashboard.
+
 ## Project structure
 
 ```
@@ -175,6 +219,7 @@ material-property-analyzer/
 │   ├── search.py              # Version 4: search, filter, sort & stats
 │   └── cli.py                 # Interactive menu: selector, search, stats
 ├── main.py                    # Run the full analysis end-to-end
+├── app.py                     # Version 5: Streamlit web dashboard
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -231,6 +276,18 @@ material-property-analyzer/
      averages, and the strongest/lightest/cheapest material.
 
    You can also run it directly with `python -m src.cli`.
+
+5. **Or, launch the Version 5 Streamlit web dashboard:**
+
+   ```bash
+   streamlit run app.py
+   ```
+
+   Opens an interactive browser dashboard with search & filtering, a
+   sortable results table, a material detail view, live charts, and a
+   three-way comparison mode. See
+   [Version 5: Streamlit Web Dashboard](#version-5-streamlit-web-dashboard)
+   above for details.
 
 ## The materials database (`data/materials.csv`)
 
