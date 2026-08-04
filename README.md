@@ -11,7 +11,10 @@ engineering ratios), ranks and compares materials, and generates
 matplotlib charts to visualize the results. Version 5 adds an
 interactive **Streamlit web dashboard** (`app.py`) on top of the same
 engine - see [Version 5](#version-5-streamlit-web-dashboard) below - and
-every original command-line tool still works exactly as before.
+Version 6 adds **interactive Plotly Ashby charts** inside that
+dashboard - see [Version 6](#version-6-interactive-ashby-charts) below.
+Every original command-line tool still works exactly as before, and
+still uses the original matplotlib charts.
 
 ## Why this matters (materials engineering 101)
 
@@ -201,6 +204,42 @@ Run it from the project root (same place you'd run `python main.py`).
 The original CLI keeps working unchanged - `python main.py` and
 `python main.py --select` are unaffected by the dashboard.
 
+## Version 6: Interactive Ashby Charts
+
+Version 6 adds `src/interactive_charts.py` and wires it into the
+dashboard's **Charts** tab as a new "Interactive Ashby Charts" section,
+built with [Plotly](https://plotly.com/python/) instead of matplotlib.
+An Ashby chart plots one material property against another (usually on
+log-log axes) so that entire material families cluster into visible
+regions - engineers scan for the region matching their constraints
+instead of comparing table rows one by one.
+
+- **Six chart presets**, selectable from a dropdown: Strength vs.
+  Density, Young's Modulus vs. Density, Thermal Conductivity vs.
+  Density, Cost vs. Strength, Specific Strength vs. Cost, and Specific
+  Stiffness vs. Cost.
+- **Hover tooltips** on every point show the material's name, category,
+  subcategory, density, yield strength, tensile strength (UTS), Young's
+  modulus, and relative cost - no need to cross-reference the table.
+- **Color by category**, using the same `CATEGORY_COLORS` palette as
+  the static matplotlib charts, so a category is the same color
+  everywhere in the project.
+- **Click a legend entry to hide/show that category** (double-click to
+  isolate just one) - built into Plotly, no extra controls needed.
+- **Log X / Log Y checkboxes** toggle each axis between logarithmic
+  (the Ashby-chart default, since these properties span orders of
+  magnitude) and linear.
+- **PNG export** via the camera icon in the chart's toolbar - no
+  server-side dependency required.
+
+Like every other chart in this project, the Ashby charts are built from
+`add_calculated_columns()` (`src/calculations.py`) over whatever table
+you pass in - the dashboard passes the same filtered `results` produced
+by `SearchEngine.search()`, so an Ashby chart always matches the
+sidebar's current search & filter selection. The original matplotlib
+charts (`src/visualizer.py`) are untouched and still power `python
+main.py`.
+
 ## Project structure
 
 ```
@@ -217,9 +256,10 @@ material-property-analyzer/
 │   ├── scoring.py             # Part 2: 0-100 scores & weighted match score
 │   ├── selection_engine.py    # Part 2: filter + rank materials by goal
 │   ├── search.py              # Version 4: search, filter, sort & stats
-│   └── cli.py                 # Interactive menu: selector, search, stats
+│   ├── cli.py                 # Interactive menu: selector, search, stats
+│   └── interactive_charts.py  # Version 6: Plotly interactive Ashby charts
 ├── main.py                    # Run the full analysis end-to-end
-├── app.py                     # Version 5: Streamlit web dashboard
+├── app.py                     # Version 5-6: Streamlit web dashboard
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -284,8 +324,10 @@ material-property-analyzer/
    ```
 
    Opens an interactive browser dashboard with search & filtering, a
-   sortable results table, a material detail view, live charts, and a
-   three-way comparison mode. See
+   sortable results table, a material detail view, live charts
+   (including interactive Plotly Ashby charts - see
+   [Version 6](#version-6-interactive-ashby-charts)), and a three-way
+   comparison mode. See
    [Version 5: Streamlit Web Dashboard](#version-5-streamlit-web-dashboard)
    above for details.
 

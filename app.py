@@ -31,6 +31,7 @@ from src.visualizer import (
     plot_strength_vs_density,
     plot_material_comparison,
 )
+from src.interactive_charts import ASHBY_CHARTS, build_ashby_figure, png_export_config
 
 DATA_PATH = os.path.join("data", "materials.csv")
 OUTPUT_DIR = "output"
@@ -61,9 +62,9 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 # ---------------------------------------------------------------------
 st.title("Material Property Analyzer")
 st.caption(
-    "Version 5 - an interactive dashboard for searching, comparing, and "
-    "selecting engineering materials. Prefer the terminal? "
-    "`python main.py --select` still works."
+    "Version 6 - an interactive dashboard for searching, comparing, and "
+    "selecting engineering materials, with interactive Ashby charts. "
+    "Prefer the terminal? `python main.py --select` still works."
 )
 
 stats = get_statistics(raw_data)
@@ -192,6 +193,34 @@ with tab_charts:
             results, os.path.join(OUTPUT_DIR, "strength_vs_density.png")
         )
         st.pyplot(fig2)
+
+        st.divider()
+        st.subheader("Interactive Ashby Charts")
+        st.caption(
+            "Version 6 - hover a point for its full properties, click a "
+            "category in the legend to hide/show it (double-click to "
+            "isolate one), and use the camera icon in the chart toolbar "
+            "to export it as a PNG. Reflects the same sidebar search & "
+            "filter selection as the charts above."
+        )
+
+        chart_col, axis_col = st.columns([2, 1])
+        with chart_col:
+            chart_key = st.selectbox(
+                "Chart",
+                options=list(ASHBY_CHARTS.keys()),
+                format_func=lambda key: ASHBY_CHARTS[key]["label"],
+            )
+        with axis_col:
+            log_x = st.checkbox("Log X axis", value=True)
+            log_y = st.checkbox("Log Y axis", value=True)
+
+        ashby_fig = build_ashby_figure(results, chart_key, log_x=log_x, log_y=log_y)
+        st.plotly_chart(
+            ashby_fig,
+            width="stretch",
+            config=png_export_config(chart_key),
+        )
 
 with tab_compare:
     st.subheader("Compare Materials")
