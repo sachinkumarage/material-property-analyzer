@@ -32,7 +32,20 @@ import pandas as pd
 import plotly.graph_objects as go
 
 from src.calculations import add_calculated_columns
-from src.visualizer import CATEGORY_COLORS, DEFAULT_COLOR
+from src.visualizer import CATEGORY_COLORS, DEFAULT_COLOR, TEXT_COLOR, AXIS_COLOR
+
+# The hover tooltip always renders on a light box (see HOVERLABEL below)
+# regardless of Streamlit's light/dark theme, so its text must be a
+# fixed dark color rather than inheriting the page's theme color -
+# otherwise dark-theme white text lands on the same white box and
+# disappears. Reuses the same ink/border colors as the static
+# matplotlib charts (visualizer.TEXT_COLOR / AXIS_COLOR) so the
+# tooltip matches the rest of the project.
+HOVERLABEL = dict(
+    bgcolor="#fcfcfb",
+    bordercolor=AXIS_COLOR,
+    font=dict(color=TEXT_COLOR, size=12),
+)
 
 # Columns shown in every tooltip, in order, alongside the material name.
 # (label, column, format spec, unit)
@@ -183,7 +196,7 @@ def build_ashby_figure(
         template="plotly_white",
         height=650,
         margin=dict(t=60, r=40, b=60, l=60),
-        hoverlabel=dict(bgcolor="white", font_size=12),
+        hoverlabel=HOVERLABEL,
     )
     fig.update_xaxes(type="log" if log_x else "linear", gridcolor="#e1e0d9")
     fig.update_yaxes(type="log" if log_y else "linear", gridcolor="#e1e0d9")
@@ -244,7 +257,7 @@ def build_specific_strength_ranking_figure(
         template="plotly_white",
         height=max(400, len(ranked) * 45),
         margin=dict(t=60, r=40, b=60, l=60),
-        hoverlabel=dict(bgcolor="white", font_size=12),
+        hoverlabel=HOVERLABEL,
         yaxis=dict(categoryorder="array", categoryarray=name_order),
         barmode="overlay",
     )
