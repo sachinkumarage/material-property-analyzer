@@ -100,8 +100,18 @@ def _category_color(category: str) -> str:
     return CATEGORY_COLORS.get(category, DEFAULT_COLOR)
 
 
-def _hover_template() -> str:
+def _hover_template(extra_lines: list = None) -> str:
+    """
+    Build the shared "<b>name</b> / property list" hover template.
+
+    extra_lines : optional lines inserted right after the bold name -
+        e.g. the one value a chart's axis already encodes (specific
+        strength for the ranking bars) but that isn't otherwise in
+        HOVER_FIELDS.
+    """
     lines = ["<b>%{text}</b>"]
+    if extra_lines:
+        lines.extend(extra_lines)
     for i, (label, _column, fmt, unit) in enumerate(HOVER_FIELDS):
         value = f"%{{customdata[{i}]{':' + fmt if fmt else ''}}}"
         lines.append(f"{label}: {value}{unit}")
@@ -177,6 +187,68 @@ def build_ashby_figure(
     )
     fig.update_xaxes(type="log" if log_x else "linear", gridcolor="#e1e0d9")
     fig.update_yaxes(type="log" if log_y else "linear", gridcolor="#e1e0d9")
+
+    return fig
+
+
+def build_specific_strength_ranking_figure(
+    df: pd.DataFrame,
+    top_n: int = 10,
+    log_x: bool = False,
+) -> go.Figure:
+    """
+    Interactive counterpart to visualizer.plot_strength_to_weight_ranking:
+    a horizontal bar chart ranking materials by strength-to-weight ratio
+    (specific strength), best at the top.
+
+    Same treatment as build_ashby_figure - one trace per category (so
+    the legend doubles as a show/hide control), full-property hover
+    tooltips, and a log/linear x-axis toggle.
+    """
+    data = add_calculated_columns(df)
+    ranked = data.sort_values("strength_to_weight_ratio", ascending=True).tail(top_n)
+    name_order = ranked["name"].tolist()
+
+    hover_columns = [column for _label, column, _fmt, _unit in HOVER_FIELDS]
+    hover_template = _hover_template(["Specific strength: %{x:.1f} MPa per g/cm³"])
+
+    fig = go.Figure()
+
+    for category in sorted(ranked["category"].unique()):
+        group = ranked[ranked["category"] == category]
+        fig.add_trace(
+            go.Bar(
+                x=group["strength_to_weight_ratio"],
+                y=group["name"],
+                orientation="h",
+                name=category,
+                text=group["name"],
+                textposition="none",
+                customdata=group[hover_columns].to_numpy(),
+                hovertemplate=hover_template,
+                marker=dict(
+                    color=_category_color(category),
+                    line=dict(width=1, color="white"),
+                ),
+            )
+        )
+
+    fig.update_layout(
+        title=dict(
+            text=f"Specific Strength Ranking (Top {len(ranked)})",
+            x=0.0,
+            xanchor="left",
+        ),
+        xaxis_title="Strength-to-weight ratio (MPa per g/cm³)",
+        legend_title_text="Category<br><sup>click to hide/show</sup>",
+        template="plotly_white",
+        height=max(400, len(ranked) * 45),
+        margin=dict(t=60, r=40, b=60, l=60),
+        hoverlabel=dict(bgcolor="white", font_size=12),
+        yaxis=dict(categoryorder="array", categoryarray=name_order),
+        barmode="overlay",
+    )
+    fig.update_xaxes(type="log" if log_x else "linear", gridcolor="#e1e0d9")
 
     return fig
 

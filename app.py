@@ -26,12 +26,13 @@ import streamlit as st
 from src.database import MaterialDatabase
 from src.comparator import MaterialComparator
 from src.search import SearchEngine, CORROSION_RESISTANCE_ORDER, get_statistics
-from src.visualizer import (
-    plot_strength_to_weight_ranking,
-    plot_strength_vs_density,
-    plot_material_comparison,
+from src.visualizer import plot_material_comparison
+from src.interactive_charts import (
+    ASHBY_CHARTS,
+    build_ashby_figure,
+    build_specific_strength_ranking_figure,
+    png_export_config,
 )
-from src.interactive_charts import ASHBY_CHARTS, build_ashby_figure, png_export_config
 
 DATA_PATH = os.path.join("data", "materials.csv")
 OUTPUT_DIR = "output"
@@ -181,28 +182,42 @@ with tab_charts:
     if results.empty:
         st.warning("No materials match the current filters - charts need at least one match.")
     else:
-        st.caption("Charts reflect the materials currently matching your sidebar filters.")
-        top_n = min(10, len(results))
-
-        fig1 = plot_strength_to_weight_ranking(
-            results, os.path.join(OUTPUT_DIR, "strength_to_weight_ranking.png"), top_n=top_n
-        )
-        st.pyplot(fig1)
-
-        fig2 = plot_strength_vs_density(
-            results, os.path.join(OUTPUT_DIR, "strength_vs_density.png")
-        )
-        st.pyplot(fig2)
-
-        st.divider()
-        st.subheader("Interactive Ashby Charts")
         st.caption(
-            "Version 6 - hover a point for its full properties, click a "
+            "Hover a point or bar for its full properties, click a "
             "category in the legend to hide/show it (double-click to "
             "isolate one), and use the camera icon in the chart toolbar "
-            "to export it as a PNG. Reflects the same sidebar search & "
-            "filter selection as the charts above."
+            "to export it as a PNG. Reflects the materials currently "
+            "matching your sidebar filters."
         )
+        top_n = min(10, len(results))
+
+        rank_log_x = st.checkbox("Log X axis", value=False, key="rank_log_x")
+        rank_fig = build_specific_strength_ranking_figure(results, top_n=top_n, log_x=rank_log_x)
+        st.plotly_chart(
+            rank_fig,
+            width="stretch",
+            config=png_export_config("specific_strength_ranking"),
+            key="chart_specific_strength_ranking",
+        )
+
+        density_col1, density_col2 = st.columns(2)
+        with density_col1:
+            density_log_x = st.checkbox("Log X axis", value=True, key="density_log_x")
+        with density_col2:
+            density_log_y = st.checkbox("Log Y axis", value=True, key="density_log_y")
+        density_fig = build_ashby_figure(
+            results, "strength_vs_density", log_x=density_log_x, log_y=density_log_y
+        )
+        st.plotly_chart(
+            density_fig,
+            width="stretch",
+            config=png_export_config("strength_vs_density"),
+            key="chart_strength_vs_density_top",
+        )
+
+        st.divider()
+        st.subheader("More Ashby Charts")
+        st.caption("Pick any other property combination to plot the same way.")
 
         chart_col, axis_col = st.columns([2, 1])
         with chart_col:
@@ -212,14 +227,15 @@ with tab_charts:
                 format_func=lambda key: ASHBY_CHARTS[key]["label"],
             )
         with axis_col:
-            log_x = st.checkbox("Log X axis", value=True)
-            log_y = st.checkbox("Log Y axis", value=True)
+            log_x = st.checkbox("Log X axis", value=True, key="ashby_log_x")
+            log_y = st.checkbox("Log Y axis", value=True, key="ashby_log_y")
 
         ashby_fig = build_ashby_figure(results, chart_key, log_x=log_x, log_y=log_y)
         st.plotly_chart(
             ashby_fig,
             width="stretch",
             config=png_export_config(chart_key),
+            key="chart_ashby_selected",
         )
 
 with tab_compare:

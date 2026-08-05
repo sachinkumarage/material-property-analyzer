@@ -194,9 +194,11 @@ Run it from the project root (same place you'd run `python main.py`).
   header to sort) and a material detail view showing every raw
   engineering property plus the specific strength, specific stiffness,
   and relative cost index for whichever material you select.
-- **Charts tab** - the same `strength_to_weight_ranking` and
-  `strength_vs_density` matplotlib charts from `src/visualizer.py`,
-  redrawn live for whatever the sidebar currently filters to.
+- **Charts tab** - interactive Plotly versions of the specific-strength
+  ranking and strength-vs-density charts (see
+  [Version 6](#version-6-interactive-ashby-charts)), redrawn live for
+  whatever the sidebar currently filters to, plus a dropdown of four
+  more Ashby-chart property combinations.
 - **Compare Materials tab** - pick up to three materials for a
   side-by-side table (raw properties + engineering ratios) and the
   matching grouped-bar comparison chart.
@@ -206,16 +208,24 @@ The original CLI keeps working unchanged - `python main.py` and
 
 ## Version 6: Interactive Ashby Charts
 
-Version 6 adds `src/interactive_charts.py` and wires it into the
-dashboard's **Charts** tab as a new "Interactive Ashby Charts" section,
-built with [Plotly](https://plotly.com/python/) instead of matplotlib.
-An Ashby chart plots one material property against another (usually on
-log-log axes) so that entire material families cluster into visible
-regions - engineers scan for the region matching their constraints
-instead of comparing table rows one by one.
+Version 6 adds `src/interactive_charts.py` and replaces every chart in
+the dashboard's **Charts** tab with an interactive
+[Plotly](https://plotly.com/python/) version instead of matplotlib -
+including the specific-strength ranking bar chart and the classic
+strength-vs-density scatter, not just the property combinations reached
+through the chart-picker dropdown. An Ashby chart plots one material
+property against another (usually on log-log axes) so that entire
+material families cluster into visible regions - engineers scan for the
+region matching their constraints instead of comparing table rows one
+by one.
 
-- **Six chart presets**, selectable from a dropdown: Strength vs.
-  Density, Young's Modulus vs. Density, Thermal Conductivity vs.
+- **Always-visible charts**: the specific-strength ranking (a bar
+  chart, colored and grouped by category the same way as the scatter
+  charts) and the classic strength-vs-density scatter.
+- **"More Ashby Charts" dropdown** with six property-combination
+  presets (including Strength vs. Density again, for comparing it
+  under different axis settings than the fixed chart above): Strength
+  vs. Density, Young's Modulus vs. Density, Thermal Conductivity vs.
   Density, Cost vs. Strength, Specific Strength vs. Cost, and Specific
   Stiffness vs. Cost.
 - **Hover tooltips** on every point show the material's name, category,
