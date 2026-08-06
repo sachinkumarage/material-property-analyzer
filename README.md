@@ -13,8 +13,11 @@ interactive **Streamlit web dashboard** (`app.py`) on top of the same
 engine - see [Version 5](#version-5-streamlit-web-dashboard) below - and
 Version 6 adds **interactive Plotly Ashby charts** inside that
 dashboard - see [Version 6](#version-6-interactive-ashby-charts) below.
-Every original command-line tool still works exactly as before, and
-still uses the original matplotlib charts.
+Version 7 adds a **complete automated test suite** (200+ tests, 100%
+code coverage) - see
+[Version 7](#version-7-automated-testing-framework) below. Every
+original command-line tool still works exactly as before, and still
+uses the original matplotlib charts.
 
 ## Why this matters (materials engineering 101)
 
@@ -250,6 +253,73 @@ sidebar's current search & filter selection. The original matplotlib
 charts (`src/visualizer.py`) are untouched and still power `python
 main.py`.
 
+## Version 7: Automated Testing Framework
+
+Version 7 adds a complete `pytest` test suite under `tests/` - **206
+tests, 100% code coverage** across every module in `src/` and `app.py`
+- without changing any existing behavior. Nothing in `src/`, `app.py`,
+or `main.py` was modified to add this; the tests document and verify
+the system exactly as Versions 1-6 built it.
+
+### Running the tests
+
+1. **Install the dev dependencies** (adds `pytest` and `pytest-cov` on
+   top of the regular `requirements.txt`):
+
+   ```bash
+   pip install -r requirements-dev.txt
+   ```
+
+2. **Run the whole suite:**
+
+   ```bash
+   pytest
+   ```
+
+   `pytest.ini` is already configured to run every test in `tests/`,
+   print a coverage summary after the run, write an HTML coverage
+   report to `htmlcov/`, and **fail the run if coverage drops below
+   90%** (`--cov-fail-under=90`). Open `htmlcov/index.html` in a
+   browser for a line-by-line, click-through coverage report.
+
+3. **Run a single test file** (useful while working on one module):
+
+   ```bash
+   pytest tests/test_search.py -v
+   ```
+
+4. **Run tests matching a name pattern:**
+
+   ```bash
+   pytest -k "corrosion"
+   ```
+
+### What's tested, and how the suite is organized
+
+| File | What it covers |
+|---|---|
+| `tests/conftest.py` | Shared fixtures: a small hand-built 4-material dataset (`sample_df`) with round numbers chosen so every ratio can be verified by hand, a temp-file CSV version of it, and fixtures for the real `data/materials.csv` |
+| `tests/test_database.py` | Unit tests for `database.py` - loading, validation, lookup, add, save |
+| `tests/test_calculations.py` | Unit tests for `calculations.py` - every formula, plus edge cases (zero/negative density) |
+| `tests/test_comparator.py` | Unit tests for `comparator.py` - compare, rank_by, and the convenience shortcuts |
+| `tests/test_scoring.py` | Unit tests for `scoring.py` - normalization and the weighted decision matrix, using a fixture engineered so every score lands on a round 0/50/100 |
+| `tests/test_search.py` | Unit tests for `search.py` - text search, range/corrosion filters, sorting, `SearchEngine`, and `get_statistics` |
+| `tests/test_selection_engine.py` | Unit tests for `selection_engine.py` - the filter funnel and goal-based `SelectionEngine` |
+| `tests/test_integration.py` | **Integration tests** against the *real* `data/materials.csv`: load → search → filter → rank → compare, checking the contracts between modules rather than hard-coding today's data |
+| `tests/test_validation.py` | **Validation tests**: invalid data (missing columns, bad formulas), empty search results, formula correctness across module boundaries, duplicate material names, and missing/NaN values |
+| `tests/test_app.py` | **Streamlit `AppTest`** tests for `app.py`: dashboard loading, search & filtering, material details, and the compare-materials flow, run against the real app script (no mocking of Streamlit itself) |
+| `tests/test_cli.py` | Unit tests for `cli.py`'s interactive menu, scripting `input()` with canned answers |
+| `tests/test_visualizer.py` | Unit tests for the matplotlib chart functions (CLI output) |
+| `tests/test_interactive_charts.py` | Unit tests for the Plotly Ashby/ranking chart builders (Version 6) |
+
+### Coverage configuration
+
+- **`pytest.ini`** wires up `pytest-cov` (`--cov=src --cov=app`) with
+  a terminal summary, an HTML report, and a 90% minimum gate.
+- **`.coveragerc`** excludes the standard `if __name__ == "__main__":`
+  entry-point guard from coverage accounting (there's nothing
+  meaningful to unit-test in a bare `run()` call at import time).
+
 ## Project structure
 
 ```
@@ -268,9 +338,27 @@ material-property-analyzer/
 │   ├── search.py              # Version 4: search, filter, sort & stats
 │   ├── cli.py                 # Interactive menu: selector, search, stats
 │   └── interactive_charts.py  # Version 6: Plotly interactive Ashby charts
+├── tests/                     # Version 7: pytest suite (206 tests, 100% coverage)
+│   ├── conftest.py            # Shared fixtures (sample data, real-CSV fixtures)
+│   ├── test_database.py
+│   ├── test_calculations.py
+│   ├── test_comparator.py
+│   ├── test_scoring.py
+│   ├── test_search.py
+│   ├── test_selection_engine.py
+│   ├── test_integration.py    # Full-stack workflows against real data
+│   ├── test_validation.py     # Invalid data, empty results, duplicates, NaNs
+│   ├── test_app.py            # Streamlit AppTest: dashboard behavior
+│   ├── test_cli.py
+│   ├── test_visualizer.py
+│   └── test_interactive_charts.py
+├── htmlcov/                    # Generated coverage report (gitignored)
 ├── main.py                    # Run the full analysis end-to-end
 ├── app.py                     # Version 5-6: Streamlit web dashboard
 ├── requirements.txt
+├── requirements-dev.txt       # Version 7: pytest + pytest-cov
+├── pytest.ini                 # Version 7: pytest & coverage configuration
+├── .coveragerc                # Version 7: coverage.py exclusions
 ├── .gitignore
 └── README.md
 ```
@@ -339,6 +427,17 @@ material-property-analyzer/
    [Version 6](#version-6-interactive-ashby-charts)), and a three-way
    comparison mode. See
    [Version 5: Streamlit Web Dashboard](#version-5-streamlit-web-dashboard)
+   above for details.
+
+6. **Or, run the automated test suite:**
+
+   ```bash
+   pip install -r requirements-dev.txt
+   pytest
+   ```
+
+   Runs all 206 tests with a coverage summary. See
+   [Version 7: Automated Testing Framework](#version-7-automated-testing-framework)
    above for details.
 
 ## The materials database (`data/materials.csv`)

@@ -12,6 +12,11 @@ ENV/
 # Generated charts (regenerate with `python main.py`)
 output/*.png
 
+# Test / coverage artifacts (regenerate with `pytest`)
+.pytest_cache/
+.coverage
+htmlcov/
+
 # Editor / OS clutter
 .vscode/
 .idea/
