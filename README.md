@@ -1,5 +1,7 @@
 # Material Property Analyzer
 
+[![CI](https://github.com/sachinkumarage/material-property-analyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/sachinkumarage/material-property-analyzer/actions/workflows/ci.yml)
+
 A beginner-friendly Python tool for exploring and comparing engineering
 materials - steels, aluminum and titanium alloys, ceramics, polymers,
 composites, wood, and more - using real mechanical, thermal, electrical,
@@ -15,9 +17,11 @@ Version 6 adds **interactive Plotly Ashby charts** inside that
 dashboard - see [Version 6](#version-6-interactive-ashby-charts) below.
 Version 7 adds a **complete automated test suite** (200+ tests, 100%
 code coverage) - see
-[Version 7](#version-7-automated-testing-framework) below. Every
-original command-line tool still works exactly as before, and still
-uses the original matplotlib charts.
+[Version 7](#version-7-automated-testing-framework) below, and Version
+8 wires that suite into **GitHub Actions continuous integration** - see
+[Version 8](#version-8-continuous-integration) below. Every original
+command-line tool still works exactly as before, and still uses the
+original matplotlib charts.
 
 ## Why this matters (materials engineering 101)
 
@@ -320,10 +324,49 @@ the system exactly as Versions 1-6 built it.
   entry-point guard from coverage accounting (there's nothing
   meaningful to unit-test in a bare `run()` call at import time).
 
+## Version 8: Continuous Integration
+
+Version 8 adds `.github/workflows/ci.yml`, a [GitHub
+Actions](https://docs.github.com/actions) workflow that runs the
+Version 7 test suite automatically on every push and every pull
+request - so a broken test or a coverage regression is caught before
+it reaches `main`, not after.
+
+[![CI](https://github.com/sachinkumarage/material-property-analyzer/actions/workflows/ci.yml/badge.svg)](https://github.com/sachinkumarage/material-property-analyzer/actions/workflows/ci.yml)
+
+**What the workflow does**, on every `push` and `pull_request`:
+
+1. Checks out the repository on a fresh **Ubuntu latest** runner.
+2. Sets up **Python 3.12** (with pip caching keyed to
+   `requirements.txt` / `requirements-dev.txt`, so repeat runs install
+   faster).
+3. Installs the project dependencies (`pip install -r requirements.txt`)
+   and then the development/test dependencies
+   (`pip install -r requirements-dev.txt`).
+4. Runs `pytest` - which, thanks to the `pytest.ini` from Version 7,
+   automatically measures coverage across `src/` and `app.py` and
+   **fails the job if total coverage drops below 90%**
+   (`--cov-fail-under=90`), on top of failing on any test failure.
+5. Uploads the generated `htmlcov/` directory as a workflow artifact
+   (`coverage-report`) - even on failure - so anyone can download and
+   browse the exact line-by-line coverage report for that run from the
+   GitHub Actions UI, no local setup required.
+
+The badge at the top of this README reflects the latest run of this
+workflow on `main`. Click it (or the one above) to open the Actions
+tab and see individual runs, logs, and downloadable coverage artifacts.
+
+Nothing about the existing test suite, source code, or CLI/dashboard
+behavior changed to add this - `ci.yml` only *runs* what Version 7
+already built.
+
 ## Project structure
 
 ```
 material-property-analyzer/
+├── .github/
+│   └── workflows/
+│       └── ci.yml              # Version 8: GitHub Actions CI (pytest + coverage gate)
 ├── data/
 │   └── materials.csv          # Sample materials database
 ├── output/                    # Generated charts land here (gitignored)
@@ -439,6 +482,11 @@ material-property-analyzer/
    Runs all 206 tests with a coverage summary. See
    [Version 7: Automated Testing Framework](#version-7-automated-testing-framework)
    above for details.
+
+   This same command is what runs automatically in CI on every push and
+   pull request - see
+   [Version 8: Continuous Integration](#version-8-continuous-integration)
+   below.
 
 ## The materials database (`data/materials.csv`)
 

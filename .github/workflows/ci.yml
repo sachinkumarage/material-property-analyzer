@@ -1,0 +1,44 @@
+name: CI
+
+"on":
+  push:
+  pull_request:
+
+jobs:
+  test:
+    name: Test (Python 3.12, Ubuntu)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+
+      - name: Install project dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install development dependencies
+        run: pip install -r requirements-dev.txt
+
+      # pytest.ini already wires up pytest-cov (--cov=src --cov=app,
+      # term-missing + HTML report) and --cov-fail-under=90, so a plain
+      # `pytest` run here both measures coverage and fails the job if
+      # it drops below 90% - no extra coverage flags needed.
+      - name: Run tests with coverage
+        run: pytest
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: htmlcov/
+          retention-days: 30
